@@ -45,7 +45,7 @@ namespace MiniORM
 
                 clonedEntities.Add(clonedEntity);
             }
-
+             
             return clonedEntities;
         }
     }
