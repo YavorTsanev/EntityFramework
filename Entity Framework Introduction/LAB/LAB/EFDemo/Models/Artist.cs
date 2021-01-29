@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
 namespace EFDemo.Models
 {
+    [Index(nameof(IsDeleted), Name = "IX_Artists_IsDeleted")]
     public partial class Artist
     {
         public Artist()
@@ -13,6 +17,7 @@ namespace EFDemo.Models
             SongArtists = new HashSet<SongArtist>();
         }
 
+        [Key]
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
@@ -20,7 +25,9 @@ namespace EFDemo.Models
         public DateTime? DeletedOn { get; set; }
         public string Name { get; set; }
 
+        [InverseProperty(nameof(ArtistMetadatum.Artist))]
         public virtual ICollection<ArtistMetadatum> ArtistMetadata { get; set; }
+        [InverseProperty(nameof(SongArtist.Artist))]
         public virtual ICollection<SongArtist> SongArtists { get; set; }
     }
 }
