@@ -5,9 +5,21 @@ using System.Text;
 
 namespace Code_First.Models
 {
-    class RecipiesDbContext : DbContext
+    class RecipesDbContext : DbContext
     {
+        public RecipesDbContext()
+        {
+
+        }
+
+        public RecipesDbContext(DbContextOptions<RecipesDbContext> options) 
+            : base(options)
+        {
+
+        }
+
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

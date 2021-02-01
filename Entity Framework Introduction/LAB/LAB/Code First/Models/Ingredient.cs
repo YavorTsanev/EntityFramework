@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Code_First.Models
 {
-    public class Recipe
+    public class Ingredient
     {
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        
         public string Name { get; set; }
 
-        public ICollection<Ingredient> Ingredients { get; set; }
+        public double Amount { get; set; }
 
+        public int RecipeId { get; set; }
+
+        public Recipe Recipe { get; set; }
     }
 }
