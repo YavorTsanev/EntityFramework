@@ -1,4 +1,5 @@
 ﻿using Code_First.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +11,9 @@ namespace Code_First
         static void Main(string[] args)
         {
             var db = new RecipesDbContext();
-            db.Database.EnsureCreated();
+            db.Database.Migrate();
 
 
-            for (int i = 0; i < 10; i++)
-            {
-                db.Recipes.Add(new Recipe
-                {
-                    Name = $"Musaka{i}",
-                    Ingredients = new List<Ingredient>
-                    {
-                        new Ingredient{Name = "Meat", Amount = 10},
-                         new Ingredient{Name = "Patato", Amount = 15}
-                    }
-                });
-            }
-
-            db.SaveChanges();
 
         }
     }
