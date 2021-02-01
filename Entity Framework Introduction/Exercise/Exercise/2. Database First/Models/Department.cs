@@ -3,8 +3,6 @@
 #nullable disable
 
 namespace SoftUni.Models
-
-
 {
     public partial class Department
     {
