@@ -7,6 +7,7 @@ namespace RecipesApp.Models
     public class RecipesDbContext : DbContext
     {
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Ingredient> Ingredients  { get; set; }
 
         public RecipesDbContext()
         {

@@ -10,9 +10,7 @@ namespace RecipesApp.Models.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Recipe> builder)
         {
-            builder.HasKey(x => new { x.Id, x.Name });
 
-            builder.Property(x => x.Name).HasColumnName("Title").IsUnicode();
 
             builder.Property<int>("EGN").IsRequired();
 
