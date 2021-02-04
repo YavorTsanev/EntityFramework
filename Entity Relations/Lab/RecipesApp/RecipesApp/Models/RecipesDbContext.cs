@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RecipesApp.EntityConfigurations;
+using RecipesApp.Models.EntityConfigurations;
 
 namespace RecipesApp.Models
 {
@@ -25,7 +27,9 @@ namespace RecipesApp.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Recipe>().ToTable("MyRecipes","system").Property(x => x.Name).HasColumnName("Title");
+            modelBuilder.ApplyConfiguration(new RecipeConfigurations());
+            modelBuilder.ApplyConfiguration(new IngredientConfigurations());
+            
         }
 
     }

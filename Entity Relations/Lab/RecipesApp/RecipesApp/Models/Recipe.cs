@@ -1,5 +1,7 @@
 ﻿
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace RecipesApp.Models
 {
@@ -12,5 +14,7 @@ namespace RecipesApp.Models
         public string Description { get; set; }
 
         public TimeSpan CookingTime { get; set; }
+
+        public ICollection<Ingredient> Ingredients { get; set; }
     }
 }
