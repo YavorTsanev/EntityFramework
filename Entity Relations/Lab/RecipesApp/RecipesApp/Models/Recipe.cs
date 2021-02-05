@@ -10,6 +10,11 @@ namespace RecipesApp.Models
 {
     public class Recipe
     {
+        public Recipe()
+        {
+            Ingredients = new HashSet<RecipeIngredient>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -20,7 +25,7 @@ namespace RecipesApp.Models
 
         public TimeSpan? CookingTime { get; set; }
 
-        public ICollection<Ingredient> Ingredients { get; set; }
+        public ICollection<RecipeIngredient> Ingredients { get; set; }
 
     }
 }

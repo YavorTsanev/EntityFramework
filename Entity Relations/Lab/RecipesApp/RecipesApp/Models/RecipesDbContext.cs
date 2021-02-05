@@ -8,6 +8,7 @@ namespace RecipesApp.Models
     {
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients  { get; set; }
+        public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 
         public RecipesDbContext()
         {
@@ -30,6 +31,8 @@ namespace RecipesApp.Models
         {
             modelBuilder.ApplyConfiguration(new RecipeConfigurations());
             modelBuilder.ApplyConfiguration(new IngredientConfigurations());
+
+            modelBuilder.Entity<RecipeIngredient>().HasKey(x => new { x.RecipeId, x.IngredientId});
             
         }
 

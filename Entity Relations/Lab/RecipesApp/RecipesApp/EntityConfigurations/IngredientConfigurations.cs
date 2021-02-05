@@ -11,6 +11,7 @@ namespace RecipesApp.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Ingredient> builder)
         {
+
         }
     }
 }

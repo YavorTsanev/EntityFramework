@@ -8,6 +8,11 @@ namespace RecipesApp.Models
 {
     public class Ingredient
     {
+        public Ingredient()
+        {
+            Recipes = new HashSet<RecipeIngredient>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -15,7 +20,7 @@ namespace RecipesApp.Models
 
         public decimal Quantity { get; set; }
 
-        public Recipe Recipe { get; set; }
+        public ICollection<RecipeIngredient> Recipes { get; set; }
 
 
     }
