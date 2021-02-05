@@ -18,8 +18,9 @@ namespace RecipesApp.Models
 
         public string Description { get; set; }
 
-        [NotMapped]
         public TimeSpan? CookingTime { get; set; }
+
+        public ICollection<Ingredient> Ingredients { get; set; }
 
     }
 }

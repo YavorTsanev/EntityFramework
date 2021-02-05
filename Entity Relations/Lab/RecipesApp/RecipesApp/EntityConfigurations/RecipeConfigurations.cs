@@ -11,11 +11,6 @@ namespace RecipesApp.Models.EntityConfigurations
         public void Configure(EntityTypeBuilder<Recipe> builder)
         {
 
-
-            builder.Property<int>("EGN").IsRequired();
-
-            
-
         }
     }
 }
