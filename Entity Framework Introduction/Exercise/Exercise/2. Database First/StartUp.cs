@@ -49,12 +49,12 @@ namespace SoftUni
 
             //var result = DeleteProjectById(context);
 
-            var result = RemoveTown(context);
+            //var result = RemoveTown(context);
 
-            Console.WriteLine(result);
+            //Console.WriteLine(result);
         }
         //Problem 3
-        private static string GetEmployeesWithSalaryOver50000(SoftUniContext context)
+        public static string GetEmployeesWithSalaryOver50000(SoftUniContext context)
         {
 
             var employees = context.Employees.Where(e => e.Salary > 50000).Select(e => new { e.FirstName, e.Salary }).OrderBy(x => x.FirstName).ToList();
@@ -180,14 +180,28 @@ namespace SoftUni
         //Problem 11
         public static string GetLatestProjects(SoftUniContext context)
         {
-            var projects = context.Projects.OrderByDescending(p => p.StartDate).OrderBy(p => p.Name).Select(p => new { p.Name, p.Description, StartDate = p.StartDate.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture) }).ToList().Take(10);
+            var lastProjects = context.Projects
+                .OrderByDescending(p => p.StartDate)
+                .Select(p => new
+                {
+                    p.Name,
+                    p.Description,
+                    p.StartDate
+                })
+                .Take(10)
+                .OrderBy(p => p.Name)
+                .ToList();
 
-            foreach (var p in projects)
+            var result = new StringBuilder();
+
+            foreach (var project in lastProjects)
             {
-                sb.AppendLine(p.Name).AppendLine(p.Description).AppendLine(p.StartDate);
+                result.AppendLine(project.Name);
+                result.AppendLine(project.Description);
+                result.AppendLine(project.StartDate.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture));
             }
 
-            return sb.ToString().TrimEnd();
+            return result.ToString().TrimEnd();
         }
         //Problem 12
         public static string IncreaseSalaries(SoftUniContext context)
