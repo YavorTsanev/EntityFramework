@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. Hospital Database", "1. Hospital Database\1. Hospital Database.csproj", "{C2683B99-512E-4A0E-86CA-32118B8800A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1. Hospital Database", "1. Hospital Database\1. Hospital Database.csproj", "{C2683B99-512E-4A0E-86CA-32118B8800A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. Sales Database", "3. Sales Database\3. Sales Database.csproj", "{36AE0A03-F737-447E-B520-E3DFD0E36523}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C2683B99-512E-4A0E-86CA-32118B8800A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2683B99-512E-4A0E-86CA-32118B8800A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2683B99-512E-4A0E-86CA-32118B8800A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36AE0A03-F737-447E-B520-E3DFD0E36523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36AE0A03-F737-447E-B520-E3DFD0E36523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36AE0A03-F737-447E-B520-E3DFD0E36523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36AE0A03-F737-447E-B520-E3DFD0E36523}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
