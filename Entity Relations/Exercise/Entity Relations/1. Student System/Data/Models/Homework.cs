@@ -6,20 +6,20 @@ using System.Text;
 
 namespace P01_StudentSystem.Data.Models
 {
-    public class Resource
+    public class Homework
     {
-        public int ResourceId { get; set; }
+        public int HomeworkId { get; set; }
 
         [Required]
-        [Column(TypeName =("nvarchar(50)"))]
-        public string  Name { get; set; }
+        [Column(TypeName =("varchar"))]
+        public string Content  { get; set; }
 
         [Required]
-        [Column(TypeName = ("varchar"))]
-        public string Url { get; set; }
+        public ContentType ContentType { get; set; }
 
-        [Required]
-        public ResourceType ResourceType  { get; set; }
+        public DateTime SubmissionTime { get; set; }
+
+        public int StudentId { get; set; }
 
         [ForeignKey("Course")]
         public int CourseId { get; set; }

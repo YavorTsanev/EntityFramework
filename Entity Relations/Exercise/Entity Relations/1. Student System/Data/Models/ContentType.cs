@@ -4,11 +4,11 @@ using System.Text;
 
 namespace P01_StudentSystem.Data.Models
 {
-    public enum  ResourceType
+    public enum ContentType
     {
-        Video = 0,
-        Presentation = 1,
-        Document = 2,
-        Other = 3
+
+        Application = 0,
+        Pdf = 1,
+        Zip = 2
     }
 }

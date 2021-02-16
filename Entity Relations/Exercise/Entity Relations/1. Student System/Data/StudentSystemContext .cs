@@ -8,8 +8,21 @@ namespace P01_StudentSystem.Data
 {
     public class StudentSystemContext : DbContext
     {
+        public StudentSystemContext()
+        {
+
+        }
+        public StudentSystemContext(DbContextOptions options)
+            : base(options)
+        {
+
+        }
+
         public DbSet<Student> Students;
         public DbSet<Course> Courses;
+        public DbSet<Resource> Resources;
+        public DbSet<Homework> Homeworks;
+        public DbSet<StudentCourse> StudentCourses;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,12 +34,8 @@ namespace P01_StudentSystem.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<StudentCourse>().HasKey(sc => new { sc.CourseId, sc.StudentId});
+
         }
     }
-
-   
-
-
-
 }

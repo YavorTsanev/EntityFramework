@@ -14,6 +14,7 @@ namespace P01_StudentSystem.Data.Models
         [Column(TypeName =("nvarchar(80)"))]
         public string Name { get; set; }
 
+
         [Column(TypeName = ("nvarchar(max)"))]
         public string Description  { get; set; }
 
@@ -23,5 +24,12 @@ namespace P01_StudentSystem.Data.Models
 
         [Column(TypeName = ("money"))]
         public double Price { get; set; }
+
+        public ICollection<StudentCourse> StudentCourses { get; set; } = new HashSet<StudentCourse>();
+
+        public ICollection<Resource> Resources { get; set; } = new HashSet<Resource>();
+
+        public ICollection<Homework> Homeworks { get; set; } = new HashSet<Homework>();
+
     }
 }

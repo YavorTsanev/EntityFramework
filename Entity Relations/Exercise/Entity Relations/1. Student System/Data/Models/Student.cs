@@ -9,7 +9,7 @@ namespace P01_StudentSystem.Data.Models
     public class Student
     {
         
-        public int Id { get; set; }
+        public int StudentId { get; set; }
 
         [Required]
         [Column(TypeName =("nvarchar(100)"))]
@@ -21,6 +21,10 @@ namespace P01_StudentSystem.Data.Models
         public DateTime RegisteredOn { get; set; }
 
         public DateTime? Birthday  { get; set; }
+
+        public ICollection<StudentCourse> StudentCourses { get; set; } = new HashSet<StudentCourse>();
+
+        public ICollection<Homework> Homeworks { get; set; } = new HashSet<Homework>();
 
 
     }
