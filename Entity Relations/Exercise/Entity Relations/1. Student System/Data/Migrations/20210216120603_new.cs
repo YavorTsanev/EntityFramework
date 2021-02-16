@@ -2,7 +2,7 @@
 
 namespace P01_StudentSystem.Data.Migrations
 {
-    public partial class change_homeworks_conntent_to_varchar_max : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using P01_StudentSystem.Data;
 
 namespace P01_StudentSystem.Data.Migrations
 {
     [DbContext(typeof(StudentSystemContext))]
-    partial class StudentSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20210216115122_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +46,7 @@ namespace P01_StudentSystem.Data.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("P01_StudentSystem.Data.Models.Homework", b =>
@@ -76,7 +78,7 @@ namespace P01_StudentSystem.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("HomeworkSubmissions");
+                    b.ToTable("Homework");
                 });
 
             modelBuilder.Entity("P01_StudentSystem.Data.Models.Resource", b =>
@@ -104,7 +106,7 @@ namespace P01_StudentSystem.Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Resources");
+                    b.ToTable("Resource");
                 });
 
             modelBuilder.Entity("P01_StudentSystem.Data.Models.Student", b =>
@@ -129,7 +131,7 @@ namespace P01_StudentSystem.Data.Migrations
 
                     b.HasKey("StudentId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("P01_StudentSystem.Data.Models.StudentCourse", b =>
@@ -144,19 +146,19 @@ namespace P01_StudentSystem.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentCourses");
+                    b.ToTable("StudentCourse");
                 });
 
             modelBuilder.Entity("P01_StudentSystem.Data.Models.Homework", b =>
                 {
                     b.HasOne("P01_StudentSystem.Data.Models.Course", "Course")
-                        .WithMany("HomeworkSubmissions")
+                        .WithMany("Homeworks")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("P01_StudentSystem.Data.Models.Student", "Student")
-                        .WithMany("HomeworkSubmissions")
+                    b.HasOne("P01_StudentSystem.Data.Models.Student", null)
+                        .WithMany("Homeworks")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -174,13 +176,13 @@ namespace P01_StudentSystem.Data.Migrations
             modelBuilder.Entity("P01_StudentSystem.Data.Models.StudentCourse", b =>
                 {
                     b.HasOne("P01_StudentSystem.Data.Models.Course", "Course")
-                        .WithMany("StudentsEnrolled")
+                        .WithMany("StudentCourses")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("P01_StudentSystem.Data.Models.Student", "Student")
-                        .WithMany("CourseEnrollments")
+                        .WithMany("StudentCourses")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

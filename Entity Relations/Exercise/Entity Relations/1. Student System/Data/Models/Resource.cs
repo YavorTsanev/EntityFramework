@@ -8,6 +8,7 @@ namespace P01_StudentSystem.Data.Models
 {
     public class Resource
     {
+        [Key]
         public int ResourceId { get; set; }
 
         [Required]
@@ -21,6 +22,7 @@ namespace P01_StudentSystem.Data.Models
         [Required]
         public ResourceType ResourceType  { get; set; }
 
+        [Required]
         [ForeignKey("Course")]
         public int CourseId { get; set; }
 

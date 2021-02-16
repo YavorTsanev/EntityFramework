@@ -18,11 +18,11 @@ namespace P01_StudentSystem.Data
 
         }
 
-        public DbSet<Student> Students;
-        public DbSet<Course> Courses;
-        public DbSet<Resource> Resources;
-        public DbSet<Homework> Homeworks;
-        public DbSet<StudentCourse> StudentCourses;
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Resource> Resources { get; set; }
+        public DbSet<Homework> HomeworkSubmissions { get; set; }
+        public DbSet<StudentCourse> StudentCourses{ get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -11,12 +11,12 @@ namespace P01_StudentSystem.Data.Migrations
                 name: "Course",
                 columns: table => new
                 {
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    CourseId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(80)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
                     Price = table.Column<decimal>(type: "money", nullable: false)
                 },
                 constraints: table =>
@@ -28,12 +28,12 @@ namespace P01_StudentSystem.Data.Migrations
                 name: "Student",
                 columns: table => new
                 {
-                    StudentId = table.Column<int>(type: "int", nullable: false)
+                    StudentId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "char(10)", nullable: true),
-                    RegisteredOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Birthday = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    RegisteredOn = table.Column<DateTime>(nullable: false),
+                    Birthday = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,12 +44,12 @@ namespace P01_StudentSystem.Data.Migrations
                 name: "Resource",
                 columns: table => new
                 {
-                    ResourceId = table.Column<int>(type: "int", nullable: false)
+                    ResourceId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    Url = table.Column<string>(type: "varchar", nullable: false),
-                    ResourceType = table.Column<int>(type: "int", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    Url = table.Column<string>(type: "varchar(max)", nullable: false),
+                    ResourceType = table.Column<int>(nullable: false),
+                    CourseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,13 +66,13 @@ namespace P01_StudentSystem.Data.Migrations
                 name: "Homework",
                 columns: table => new
                 {
-                    HomeworkId = table.Column<int>(type: "int", nullable: false)
+                    HomeworkId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Content = table.Column<string>(type: "varchar", nullable: false),
-                    ContentType = table.Column<int>(type: "int", nullable: false),
-                    SubmissionTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    Content = table.Column<string>(type: "varchar(max)", nullable: false),
+                    ContentType = table.Column<int>(nullable: false),
+                    SubmissionTime = table.Column<DateTime>(nullable: false),
+                    StudentId = table.Column<int>(nullable: false),
+                    CourseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,8 +95,8 @@ namespace P01_StudentSystem.Data.Migrations
                 name: "StudentCourse",
                 columns: table => new
                 {
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    StudentId = table.Column<int>(nullable: false),
+                    CourseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

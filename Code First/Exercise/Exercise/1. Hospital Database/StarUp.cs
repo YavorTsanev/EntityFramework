@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using P01_StudentSystem.Data;
+using P01_HospitalDatabase.Data;
 using System;
 
-namespace P01_StudentSystem
+namespace P01_HospitalDatabase 
 {
-    public class StartUp
+    public class StarUp
     {
         public static void Main(string[] args)
         {
-            using var db = new StudentSystemContext();
+            var db = new HospitalContext();
+
             db.Database.Migrate();
         }
     }

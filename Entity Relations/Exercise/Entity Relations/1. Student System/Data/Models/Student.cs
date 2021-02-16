@@ -8,7 +8,7 @@ namespace P01_StudentSystem.Data.Models
 {
     public class Student
     {
-        
+        [Key]
         public int StudentId { get; set; }
 
         [Required]
@@ -18,13 +18,14 @@ namespace P01_StudentSystem.Data.Models
         [Column(TypeName =("char(10)"))]
         public string PhoneNumber  { get; set; }
 
+        [Required]
         public DateTime RegisteredOn { get; set; }
 
         public DateTime? Birthday  { get; set; }
 
-        public ICollection<StudentCourse> StudentCourses { get; set; } = new HashSet<StudentCourse>();
+        public ICollection<StudentCourse> CourseEnrollments { get; set; } = new HashSet<StudentCourse>();
 
-        public ICollection<Homework> Homeworks { get; set; } = new HashSet<Homework>();
+        public ICollection<Homework> HomeworkSubmissions { get; set; } = new HashSet<Homework>();
 
 
     }

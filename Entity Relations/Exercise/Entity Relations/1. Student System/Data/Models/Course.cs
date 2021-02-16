@@ -8,6 +8,7 @@ namespace P01_StudentSystem.Data.Models
 {
     public class Course
     {
+        [Key]
         public int CourseId { get; set; }
 
         [Required]
@@ -18,18 +19,21 @@ namespace P01_StudentSystem.Data.Models
         [Column(TypeName = ("nvarchar(max)"))]
         public string Description  { get; set; }
 
+        [Required]
         public DateTime StartDate { get; set; }
 
+        [Required]
         public DateTime EndDate { get; set; }
 
+        [Required]
         [Column(TypeName = ("money"))]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
-        public ICollection<StudentCourse> StudentCourses { get; set; } = new HashSet<StudentCourse>();
+        public ICollection<StudentCourse> StudentsEnrolled { get; set; } = new HashSet<StudentCourse>();
 
         public ICollection<Resource> Resources { get; set; } = new HashSet<Resource>();
 
-        public ICollection<Homework> Homeworks { get; set; } = new HashSet<Homework>();
+        public ICollection<Homework> HomeworkSubmissions { get; set; } = new HashSet<Homework>();
 
     }
 }
