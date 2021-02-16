@@ -12,9 +12,10 @@ namespace P01_StudentSystem.Data.Models
 
         public Student Student { get; set; }
 
+        [ForeignKey("Course")]
         public int CourseId { get; set; }
 
-        [ForeignKey("Course")]
+       
         public Course Course { get; set; }
 
     }

@@ -15,7 +15,7 @@ namespace P01_StudentSystem.Data.Models
         public string  Name { get; set; }
 
         [Required]
-        [Column(TypeName = ("varchar"))]
+        [Column(TypeName = ("varchar(max)"))]
         public string Url { get; set; }
 
         [Required]
