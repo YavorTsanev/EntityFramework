@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1. Student System Client", "1. Student System\1. Student System Client.csproj", "{3DC11546-C627-4739-A876-5C5ADAED24CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Student System Client", "1. Student System\Student System Client.csproj", "{3DC11546-C627-4739-A876-5C5ADAED24CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Student System Data", "Student System Data\Student System Data.csproj", "{A1E58954-2B63-4E78-BAF2-1638283B9CAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Student System Data", "Student System Data\Student System Data.csproj", "{A1E58954-2B63-4E78-BAF2-1638283B9CAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Student System Models", "Student System Models\Student System Models.csproj", "{F0806A7D-B517-410B-99B1-FFC63A1FD016}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Student System Models", "Student System Models\Student System Models.csproj", "{F0806A7D-B517-410B-99B1-FFC63A1FD016}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
