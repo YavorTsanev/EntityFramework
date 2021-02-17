@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Football_Betting
+namespace P03_FootballBetting
 {
-    class StartUp
+    public class StartUp
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
         }

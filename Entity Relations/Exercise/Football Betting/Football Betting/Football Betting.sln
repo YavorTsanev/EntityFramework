@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Football Betting Client", "Football Betting\Football Betting Client.csproj", "{77370E94-128D-43E1-B06C-263CF622F443}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Football Betting\Client.csproj", "{77370E94-128D-43E1-B06C-263CF622F443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{1BA3053A-F844-4090-91F7-8BA292880206}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{29AD897D-0BCE-4E08-A41D-BBD8845A5628}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{77370E94-128D-43E1-B06C-263CF622F443}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77370E94-128D-43E1-B06C-263CF622F443}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77370E94-128D-43E1-B06C-263CF622F443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BA3053A-F844-4090-91F7-8BA292880206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BA3053A-F844-4090-91F7-8BA292880206}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BA3053A-F844-4090-91F7-8BA292880206}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BA3053A-F844-4090-91F7-8BA292880206}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AD897D-0BCE-4E08-A41D-BBD8845A5628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AD897D-0BCE-4E08-A41D-BBD8845A5628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AD897D-0BCE-4E08-A41D-BBD8845A5628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AD897D-0BCE-4E08-A41D-BBD8845A5628}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
