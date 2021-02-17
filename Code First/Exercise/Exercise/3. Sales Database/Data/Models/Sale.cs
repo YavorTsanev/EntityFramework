@@ -9,7 +9,6 @@ namespace P03_SalesDatabase.Data.Models
     {
         public int SaleId { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime Date { get; set; }
 
         public int ProductId { get; set; }

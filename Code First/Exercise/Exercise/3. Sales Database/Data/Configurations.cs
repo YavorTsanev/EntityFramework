@@ -4,8 +4,8 @@ using System.Text;
 
 namespace P03_SalesDatabase.Data
 {
-    public static class Configurations
+    static class Configurations
     {
-        public const string ConectionString = "Server=.;Database=Sales;Integrated Security=true";
+       public const string ConectionString = @"Server=.;Database=Sales;Integrated Security=true";
     }
 }
