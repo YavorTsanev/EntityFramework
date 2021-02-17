@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace P03_FootballBetting.Data.Models
 {
@@ -22,12 +20,10 @@ namespace P03_FootballBetting.Data.Models
         [Required]
         public decimal Budget { get; set; }
 
-        [ForeignKey("Color")]
         public int PrimaryKitColorId { get; set; }
 
         public Color PrimaryKitColor { get; set; }
 
-        [ForeignKey("Color")]
         public int SecondaryKitColorId { get; set; }
 
         public Color SecondaryKitColor { get; set; }

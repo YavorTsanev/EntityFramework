@@ -34,6 +34,8 @@ namespace P03_FootballBetting.Data
             {
                 optionsBuilder.UseSqlServer(Conection.ConectionString);
             }
+
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
