@@ -1,9 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>P01_StudentSystem</RootNamespace>
+    <RootNamespace>Student_System_Data</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +11,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Student System Models\Student System Models.csproj" />
   </ItemGroup>
 
 </Project>

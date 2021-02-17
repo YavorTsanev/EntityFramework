@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using P01_StudentSystem.Data;
 
-namespace P01_StudentSystem.Data.Migrations
+namespace Student_System_Data.Migrations
 {
     [DbContext(typeof(StudentSystemContext))]
-    [Migration("20210216122454_new5")]
-    partial class new5
+    [Migration("20210217110440_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,7 +46,7 @@ namespace P01_StudentSystem.Data.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("P01_StudentSystem.Data.Models.Homework", b =>
@@ -78,7 +78,7 @@ namespace P01_StudentSystem.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Homework");
+                    b.ToTable("HomeworkSubmissions");
                 });
 
             modelBuilder.Entity("P01_StudentSystem.Data.Models.Resource", b =>
@@ -106,7 +106,7 @@ namespace P01_StudentSystem.Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Resource");
+                    b.ToTable("Resources");
                 });
 
             modelBuilder.Entity("P01_StudentSystem.Data.Models.Student", b =>
@@ -131,7 +131,7 @@ namespace P01_StudentSystem.Data.Migrations
 
                     b.HasKey("StudentId");
 
-                    b.ToTable("Student");
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("P01_StudentSystem.Data.Models.StudentCourse", b =>
@@ -146,7 +146,7 @@ namespace P01_StudentSystem.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentCourse");
+                    b.ToTable("StudentCourses");
                 });
 
             modelBuilder.Entity("P01_StudentSystem.Data.Models.Homework", b =>
