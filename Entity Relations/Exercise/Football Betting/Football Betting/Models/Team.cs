@@ -20,11 +20,11 @@ namespace P03_FootballBetting.Data.Models
         [Required]
         public decimal Budget { get; set; }
 
-        public int PrimaryKitColorId { get; set; }
+        public int? PrimaryKitColorId { get; set; }
 
         public Color PrimaryKitColor { get; set; }
 
-        public int SecondaryKitColorId { get; set; }
+        public int? SecondaryKitColorId { get; set; }
 
         public Color SecondaryKitColor { get; set; }
 
@@ -32,8 +32,10 @@ namespace P03_FootballBetting.Data.Models
 
         public Town Town { get; set; }
 
+        [InverseProperty("HomeTeam")]
         public ICollection<Game> HomeGames { get; set; } = new HashSet<Game>();
 
+        [InverseProperty("AwayTeam")]
         public ICollection<Game> AwayGames { get; set; } = new HashSet<Game>();
 
         public ICollection<Player> Players { get; set; } = new HashSet<Player>();
