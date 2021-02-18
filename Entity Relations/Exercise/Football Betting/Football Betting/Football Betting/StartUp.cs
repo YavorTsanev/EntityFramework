@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using P03_FootballBetting.Data;
+using P03_FootballBetting.Data.Models;
+using System;
+using System.Linq;
 
 namespace P03_FootballBetting
 {
@@ -7,9 +10,8 @@ namespace P03_FootballBetting
     {
         public static void Main(string[] args)
         {
-            var db = new FootballBettingContext();
+           
 
-            db.Database.Migrate();
         }
     }
 }

@@ -42,10 +42,6 @@ namespace P03_FootballBetting.Data
         {
             modelBuilder.Entity<PlayerStatistic>().HasKey(ps => new { ps.GameId,ps.PlayerId});
 
-            modelBuilder
-                  .Entity<PlayerStatistic>()
-                  .HasKey(k => new { k.GameId, k.PlayerId });
-
         }
     }
 }
