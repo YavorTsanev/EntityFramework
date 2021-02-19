@@ -14,7 +14,7 @@ namespace Demo.Models
         public int ArtistId { get; set; }
         public int Order { get; set; }
 
-        public virtual Artists Artist { get; set; }
-        public virtual Songs Song { get; set; }
+        public virtual Artist Artist { get; set; }
+        public virtual Song Song { get; set; }
     }
 }

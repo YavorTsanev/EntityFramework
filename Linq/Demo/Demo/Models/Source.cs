@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Demo.Models
 {
-    public partial class Sources
+    public partial class Source
     {
-        public Sources()
+        public Source()
         {
             ArtistMetadata = new HashSet<ArtistMetadata>();
             SongMetadata = new HashSet<SongMetadata>();
-            Songs = new HashSet<Songs>();
+            Songs = new HashSet<Song>();
         }
 
         public int Id { get; set; }
@@ -19,6 +19,6 @@ namespace Demo.Models
 
         public virtual ICollection<ArtistMetadata> ArtistMetadata { get; set; }
         public virtual ICollection<SongMetadata> SongMetadata { get; set; }
-        public virtual ICollection<Songs> Songs { get; set; }
+        public virtual ICollection<Song> Songs { get; set; }
     }
 }

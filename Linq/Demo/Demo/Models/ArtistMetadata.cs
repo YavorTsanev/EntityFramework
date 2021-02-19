@@ -16,7 +16,7 @@ namespace Demo.Models
         public int? SourceId { get; set; }
         public string SourceItemId { get; set; }
 
-        public virtual Artists Artist { get; set; }
-        public virtual Sources Source { get; set; }
+        public virtual Artist Artist { get; set; }
+        public virtual Source Source { get; set; }
     }
 }

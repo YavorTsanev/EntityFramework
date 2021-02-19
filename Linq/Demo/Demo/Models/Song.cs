@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Demo.Models
 {
-    public partial class Songs
+    public partial class Song
     {
-        public Songs()
+        public Song()
         {
             SongArtists = new HashSet<SongArtists>();
             SongMetadata = new HashSet<SongMetadata>();
@@ -21,7 +21,7 @@ namespace Demo.Models
         public string SourceItemId { get; set; }
         public string SearchTerms { get; set; }
 
-        public virtual Sources Source { get; set; }
+        public virtual Source Source { get; set; }
         public virtual ICollection<SongArtists> SongArtists { get; set; }
         public virtual ICollection<SongMetadata> SongMetadata { get; set; }
     }

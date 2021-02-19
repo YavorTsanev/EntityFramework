@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Demo.Models
 {
-    public partial class Artists
+    public partial class Artist
     {
-        public Artists()
+        public Artist()
         {
             ArtistMetadata = new HashSet<ArtistMetadata>();
             SongArtists = new HashSet<SongArtists>();

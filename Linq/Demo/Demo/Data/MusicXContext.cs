@@ -16,11 +16,11 @@ namespace Demo.Models
         }
 
         public virtual DbSet<ArtistMetadata> ArtistMetadata { get; set; }
-        public virtual DbSet<Artists> Artists { get; set; }
+        public virtual DbSet<Artist> Artists { get; set; }
         public virtual DbSet<SongArtists> SongArtists { get; set; }
         public virtual DbSet<SongMetadata> SongMetadata { get; set; }
-        public virtual DbSet<Songs> Songs { get; set; }
-        public virtual DbSet<Sources> Sources { get; set; }
+        public virtual DbSet<Song> Songs { get; set; }
+        public virtual DbSet<Source> Sources { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -51,7 +51,7 @@ namespace Demo.Models
                     .HasForeignKey(d => d.SourceId);
             });
 
-            modelBuilder.Entity<Artists>(entity =>
+            modelBuilder.Entity<Artist>(entity =>
             {
                 entity.HasIndex(e => e.IsDeleted);
             });
@@ -93,7 +93,7 @@ namespace Demo.Models
                     .HasForeignKey(d => d.SourceId);
             });
 
-            modelBuilder.Entity<Songs>(entity =>
+            modelBuilder.Entity<Song>(entity =>
             {
                 entity.HasIndex(e => e.IsDeleted);
 

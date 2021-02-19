@@ -11,7 +11,7 @@ namespace Demo
         {
             var db = new MusicXContext();
 
-            db.Songs.Include(s => s.SongMetadata).Take(20).Select(s => new { }).ToList().ForEach(s => Console.WriteLine(string.Join(", ",s)));
+
         }
     }
 }
