@@ -27,6 +27,8 @@ namespace BookShop.Models
 
         public AgeRestriction AgeRestriction  { get; set; }
 
+        public int AuthorId { get; set; }
+
         public Author Author { get; set; }
 
         public virtual ICollection<BookCategory> BookCategories { get; set; } = new HashSet<BookCategory>();
