@@ -11,7 +11,7 @@ namespace BookShop.Models
         [Required, Column(TypeName = "nvarchar(50)")]
         public string Name { get; set; }
 
-        public virtual ICollection<BookCategory> GetBookCategories { get; set; } = new HashSet<BookCategory>();
+        public virtual ICollection<BookCategory> CategoryBooks { get; set; } = new HashSet<BookCategory>();
 
 
     }

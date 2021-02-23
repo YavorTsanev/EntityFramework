@@ -15,9 +15,13 @@ namespace BookShop
             using var db = new BookShopContext();
             //DbInitializer.ResetDatabase(db);
 
-            //string command = Console.ReadLine();
+            //var command = int.Parse(Console.ReadLine());
+            var input = Console.ReadLine();
             //var result = GetBooksByAgeRestriction(db, command);
-            var result = GetGoldenBooks(db);
+            //var result = GetGoldenBooks(db);
+            //var result = GetBooksByPrice(db);
+            // var result = GetBooksNotReleasedIn(db, command);
+            var result = GetBooksByCategory(db, input);
             Console.WriteLine(result);
         }
 
@@ -46,6 +50,53 @@ namespace BookShop
 
 
             var books = context.Books.AsEnumerable().Where(b => b.EditionType.ToString() == "Gold" && b.Copies < 5000).OrderBy(b => b.BookId).Select(b => b.Title).ToList();
+
+            foreach (var item in books)
+            {
+                sb.AppendLine(item);
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetBooksByPrice(BookShopContext context)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var books = context.Books.Where(b => b.Price > 40).Select(b => new { b.Title, b.Price }).OrderByDescending(b => b.Price).ToList();
+
+            foreach (var item in books)
+            {
+                sb.AppendLine($"{item.Title} - ${item.Price:f2}");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetBooksNotReleasedIn(BookShopContext context, int year)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var books = context.Books.Where(b => b.ReleaseDate.Value.Year != year).OrderBy(b => b.BookId).Select(b => b.Title).ToList();
+
+            foreach (var item in books)
+            {
+                sb.AppendLine(item);
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetBooksByCategory(BookShopContext context, string input)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var categories = input.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(c => c.ToUpper()).ToList();
+
+            var books = context.Books.Where(b => b.BookCategories.Select(bc => bc.Category.Name.ToLower()).Intersect(categories).Any())
+                .Select(b => b.Title)
+                .OrderBy(b => b)
+                .ToArray();
 
             foreach (var item in books)
             {

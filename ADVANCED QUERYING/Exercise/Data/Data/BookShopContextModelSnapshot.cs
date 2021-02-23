@@ -36,7 +36,7 @@ namespace BookShop.Data.Data
 
                     b.HasKey("AuthorId");
 
-                    b.ToTable("Author");
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("BookShop.Models.Book", b =>
@@ -49,7 +49,7 @@ namespace BookShop.Data.Data
                     b.Property<int>("AgeRestriction")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AuthorId")
+                    b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<int>("Copies")
@@ -76,7 +76,7 @@ namespace BookShop.Data.Data
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Book");
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("BookShop.Models.BookCategory", b =>
@@ -91,7 +91,7 @@ namespace BookShop.Data.Data
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("BookCategory");
+                    b.ToTable("BookCategories");
                 });
 
             modelBuilder.Entity("BookShop.Models.Category", b =>
@@ -107,14 +107,16 @@ namespace BookShop.Data.Data
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BookShop.Models.Book", b =>
                 {
                     b.HasOne("BookShop.Models.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookShop.Models.BookCategory", b =>
@@ -126,7 +128,7 @@ namespace BookShop.Data.Data
                         .IsRequired();
 
                     b.HasOne("BookShop.Models.Category", "Category")
-                        .WithMany("GetBookCategories")
+                        .WithMany("CategoryBooks")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
