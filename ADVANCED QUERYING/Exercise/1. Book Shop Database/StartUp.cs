@@ -15,13 +15,32 @@ namespace BookShop
             using var db = new BookShopContext();
             //DbInitializer.ResetDatabase(db);
 
-            //var command = int.Parse(Console.ReadLine());
-            var input = Console.ReadLine();
+            //var input = int.Parse(Console.ReadLine());
+
+            //var input = Console.ReadLine();
+
             //var result = GetBooksByAgeRestriction(db, command);
+
             //var result = GetGoldenBooks(db);
+
             //var result = GetBooksByPrice(db);
+
             // var result = GetBooksNotReleasedIn(db, command);
-            var result = GetBooksByCategory(db, input);
+
+            //var result = GetBooksByCategory(db, input);
+
+            //var result = GetBooksReleasedBefore(db,input);
+
+            //var result = GetAuthorNamesEndingIn(db,input);
+
+            //var result = GetBookTitlesContaining(db, input);
+
+            //var result = GetBooksByAuthor(db, input);
+
+            //var result = CountBooks(db, input);
+
+            var result = CountCopiesByAuthor(db);
+
             Console.WriteLine(result);
         }
 
@@ -101,6 +120,82 @@ namespace BookShop
             foreach (var item in books)
             {
                 sb.AppendLine(item);
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetBooksReleasedBefore(BookShopContext context, string date)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var books = context.Books.Where(b => b.ReleaseDate < DateTime.ParseExact(date, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture)).OrderByDescending(b => b.ReleaseDate).Select(b => new { b.Title, EditionType = b.EditionType.ToString(), b.Price }).ToList();
+
+            foreach (var book in books)
+            {
+                sb.AppendLine($"{book.Title} - {book.EditionType} - ${book.Price:f2}");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetAuthorNamesEndingIn(BookShopContext context, string input)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var authors = context.Authors.Where(a => a.FirstName.EndsWith(input)).Select(a => new { FullName = a.FirstName + " " + a.LastName }).OrderBy(x => x.FullName).ToList();
+
+            foreach (var author in authors)
+            {
+                sb.AppendLine(author.FullName);
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetBookTitlesContaining(BookShopContext context, string input)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var books = context.Books.Where(b => b.Title.ToUpper().Contains(input.ToUpper())).Select(b => b.Title).OrderBy(b => b).ToList();
+
+            foreach (var book in books)
+            {
+                sb.AppendLine(book);
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetBooksByAuthor(BookShopContext context, string input)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var books = context.Books.Where(b => b.Author.LastName.ToUpper().StartsWith(input.ToUpper())).OrderBy(b => b.BookId).Select(b => new { b.Title, AuthorFullNAme = b.Author.FirstName + " " + b.Author.LastName }).ToList();
+
+            foreach (var book in books)
+            {
+                sb.AppendLine($"{book.Title} ({book.AuthorFullNAme})");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static int CountBooks(BookShopContext context, int lengthCheck)
+        {
+            return context.Books.Where(b => b.Title.Length > lengthCheck).Count();
+        }
+
+
+        public static string CountCopiesByAuthor(BookShopContext context)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var authors = context.Authors.Select(a => new { FullName = a.FirstName + " " + a.LastName, CountOfCopies = a.Books.Sum(b => b.Copies) }).OrderByDescending(a => a.CountOfCopies).ToList();
+
+            foreach (var author in authors)
+            {
+                sb.AppendLine($"{author.FullName} - {author.CountOfCopies}");
             }
 
             return sb.ToString().TrimEnd();
