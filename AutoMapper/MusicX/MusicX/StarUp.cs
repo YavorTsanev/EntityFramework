@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MusicX.Data.Models;
 using Newtonsoft.Json;
 using System;
@@ -12,20 +13,17 @@ namespace MusicX
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Artist,ArtistWithSongs>();
+                cfg.CreateMap<Artist, ArtistWithSongs>();
+                cfg.CreateMap<Song, SongView>().ForMember(m => m.Artists, opt => opt.MapFrom(s => string.Join(" , ",s.SongArtists.Select(s => s.Artist.Name))));
             });
-
-            var mapper = config.CreateMapper();
 
             var db = new MusicXContext();
 
-            var artist = db.Artists.FirstOrDefault();
+            var artistView = db.Artists.ProjectTo<ArtistWithSongs>(config).Take(5);
 
-            var artistViewModel = mapper.Map<ArtistWithSongs>(artist);
+            var songview = db.Songs.ProjectTo<SongView>(config).Take(10);
 
-
-
-            Print(artistViewModel);
+            Print(songview);
         }
 
         public static void Print(object artists)
@@ -37,7 +35,18 @@ namespace MusicX
         {
             public string Name { get; set; }
 
-            public int SongsCount { get; set; }
+            public int ArtistMetadataCount { get; set; }
+
+        }
+
+        class SongView
+        {
+            public string Name { get; set; }
+
+            public string Artists { get; set; }
         }
     }
+   
+
+
 }
