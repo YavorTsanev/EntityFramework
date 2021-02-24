@@ -14,7 +14,7 @@ namespace MusicX
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Artist, ArtistWithSongs>();
-                cfg.CreateMap<Song, SongView>().ForMember(m => m.Artists, opt => opt.MapFrom(s => string.Join(" , ",s.SongArtists.Select(s => s.Artist.Name))));
+                cfg.CreateMap<Song, SongView>().ForMember(m => m.Artists, opt => opt.MapFrom(s => string.Join(" , ", s.SongArtists.Select(s => s.Artist.Name)))).ReverseMap();
             });
 
             var db = new MusicXContext();
@@ -24,29 +24,44 @@ namespace MusicX
             var songview = db.Songs.ProjectTo<SongView>(config).Take(10);
 
             Print(songview);
+
+            //var inputModel = new SongView
+            //{
+            //    Name = "Yoo",
+
+            //    SourceName = "YouTube",
+
+            //    Artists = "Ooooo"
+            //};
+
+            //var mapper = config.CreateMapper();
+
+            //var song = mapper.Map<Song>(inputModel);
+
+            //Print(song);
+
         }
 
         public static void Print(object artists)
         {
             Console.WriteLine(JsonConvert.SerializeObject(artists, Formatting.Indented));
         }
-
-        class ArtistWithSongs
-        {
-            public string Name { get; set; }
-
-            public int ArtistMetadataCount { get; set; }
-
-        }
-
-        class SongView
-        {
-            public string Name { get; set; }
-
-            public string Artists { get; set; }
-        }
     }
-   
 
+    class SongView
+    {
+        public string Name { get; set; }
 
+        public string Artists { get; set; }
+
+        public string SourceName { get; set; }
+    }
+
+    class ArtistWithSongs
+    {
+        public string Name { get; set; }
+
+        public int ArtistMetadataCount { get; set; }
+
+    }
 }
