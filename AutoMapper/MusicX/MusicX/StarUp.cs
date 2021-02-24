@@ -26,7 +26,7 @@ namespace MusicX
             var songview = db.Songs.ProjectTo<SongView>(config).Take(10);
 
             Print(songview);
-
+            #region inputModel
             //var inputModel = new SongView
             //{
             //    Name = "Yoo",
@@ -41,7 +41,7 @@ namespace MusicX
             //var song = mapper.Map<Song>(inputModel);
 
             //Print(song);
-
+            #endregion
         }
 
         public static void Print(object artists)
