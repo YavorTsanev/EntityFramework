@@ -7,6 +7,7 @@
 
     using Data;
     using ViewModels.Orders;
+    using AutoMapper.QueryableExtensions;
 
     public class OrdersController : Controller
     {
@@ -23,8 +24,9 @@
         {
             var viewOrder = new CreateOrderViewModel
             {
-                Items = this.context.Items.Select(x => x.Id).ToList(),
-                Employees = this.context.Employees.Select(x => x.Id).ToList(),
+                Items = this.context.Items.ProjectTo<CreateOrderItemVewModel>(mapper.ConfigurationProvider).ToList(),
+                Employees = this.context.Employees.ProjectTo<CreateOrderEmplooyeeViewModel>(mapper.ConfigurationProvider).ToList()
+
             };
 
             return this.View(viewOrder);
