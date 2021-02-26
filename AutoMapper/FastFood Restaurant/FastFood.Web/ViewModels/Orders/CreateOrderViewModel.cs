@@ -4,8 +4,8 @@
 
     public class CreateOrderViewModel
     {
-        public List<CreateOrderItemVewModel> Items { get; set; }
+        public List<CreateOrderItemVeiwModel> Items { get; set; }
 
-        public List<CreateOrderEmplooyeeViewModel> Employees { get; set; }
+        public List<CreateOrderEmployeeViewModel> Employees { get; set; }
     }
 }

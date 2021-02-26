@@ -8,6 +8,7 @@
     using Data;
     using ViewModels.Orders;
     using AutoMapper.QueryableExtensions;
+    using FastFood.Models;
 
     public class OrdersController : Controller
     {
@@ -24,8 +25,8 @@
         {
             var viewOrder = new CreateOrderViewModel
             {
-                Items = this.context.Items.ProjectTo<CreateOrderItemVewModel>(mapper.ConfigurationProvider).ToList(),
-                Employees = this.context.Employees.ProjectTo<CreateOrderEmplooyeeViewModel>(mapper.ConfigurationProvider).ToList()
+                Items = this.context.Items.ProjectTo<CreateOrderItemVeiwModel>(mapper.ConfigurationProvider).ToList(),
+                Employees = this.context.Employees.ProjectTo<CreateOrderEmployeeViewModel>(mapper.ConfigurationProvider).ToList()
 
             };
 
@@ -34,13 +35,32 @@
 
         [HttpPost]
         public IActionResult Create(CreateOrderInputModel model)
-        { 
-            return this.RedirectToAction("All", "Orders");
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return RedirectToAction("Error", "Home");
+
+            //}
+
+            var order = mapper.Map<Order>(model);
+
+            var orderItem = mapper.Map<OrderItem>(model);
+
+            orderItem.Order = order;
+
+            context.Orders.Add(order);
+            context.OrderItems.Add(orderItem);
+
+            context.SaveChanges();
+
+            return this.RedirectToAction("All");
         }
 
         public IActionResult All()
         {
-            throw new NotImplementedException();
+            var orders = context.Orders.ProjectTo<OrderAllViewModel>(mapper.ConfigurationProvider).ToList();
+
+            return View(orders);
         }
     }
 }

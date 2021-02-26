@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FastFood.Web.ViewModels.Orders
 {
-    public class CreateOrderItemVewModel
+    public class CreateOrderItemVeiwModel
     {
 
         public int ItemId { get; set; } 
