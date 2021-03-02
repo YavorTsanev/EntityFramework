@@ -17,10 +17,10 @@ namespace ProductShop.Models
 
         public int? Age { get; set; }
 
-        [InverseProperty("SellerId")]
+        [InverseProperty("Seller")]
         public virtual ICollection<Product> ProductsSold { get; set; } = new HashSet<Product>();
 
-        [InverseProperty("BuyerId")]
+        [InverseProperty("Buyer")]
         public virtual ICollection<Product> ProductsBought { get; set; } = new HashSet<Product>();
     }
 }

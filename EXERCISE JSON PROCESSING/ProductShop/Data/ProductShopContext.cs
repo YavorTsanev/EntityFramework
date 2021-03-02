@@ -11,7 +11,7 @@ namespace ProductShop.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryProducts> CategoryProducts { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<>Property { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public ProductShopContext()
         {
