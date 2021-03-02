@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace ConsoleApp1
+namespace ProductShop
 {
-    class Program
+    public class StarUp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(typeof(decimal));
+           
         }
     }
 }
