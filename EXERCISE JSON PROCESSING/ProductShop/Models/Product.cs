@@ -15,10 +15,10 @@ namespace ProductShop.Models
         public decimal? Price { get; set; }
 
         public int? BuyerId { get; set; }
-        public User Buyer { get; set; }
+        public virtual User Buyer { get; set; }
 
         public int SellerId { get; set; }
-        public User Seller { get; set; }
+        public virtual User Seller { get; set; }
 
         public virtual ICollection<CategoryProducts> CategoryProducts { get; set; } = new HashSet<CategoryProducts>();
     }

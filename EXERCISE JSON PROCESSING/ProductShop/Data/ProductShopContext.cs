@@ -37,6 +37,10 @@ namespace ProductShop.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CategoryProducts>().HasKey( cp => new {cp.CategoryId, cp.ProductId });
+
+            modelBuilder.Entity<Product>().HasOne(p => p.Buyer).WithMany(x => x.ProductsBought).HasForeignKey(p => p.BuyerId);
+
+            modelBuilder.Entity<Product>().HasOne(p => p.Seller).WithMany(x => x.ProductsSold).HasForeignKey(p => p.SellerId);
         }
     }
 }
