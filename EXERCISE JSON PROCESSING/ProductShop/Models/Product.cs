@@ -20,6 +20,6 @@ namespace ProductShop.Models
         public int SellerId { get; set; }
         public virtual User Seller { get; set; }
 
-        public virtual ICollection<CategoryProducts> CategoryProducts { get; set; } = new HashSet<CategoryProducts>();
+        public virtual ICollection<CategoryProduct> CategoryProducts { get; set; } = new HashSet<CategoryProduct>();
     }
 }

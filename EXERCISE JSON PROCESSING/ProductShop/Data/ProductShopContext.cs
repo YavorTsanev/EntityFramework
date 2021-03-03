@@ -9,7 +9,7 @@ namespace ProductShop.Data
     public class ProductShopContext : DbContext
     {
         public DbSet<Category> Categories { get; set; }
-        public DbSet<CategoryProducts> CategoryProducts { get; set; }
+        public DbSet<CategoryProduct> CategoryProducts { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -36,7 +36,7 @@ namespace ProductShop.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CategoryProducts>().HasKey( cp => new {cp.CategoryId, cp.ProductId });
+            modelBuilder.Entity<CategoryProduct>().HasKey( cp => new {cp.CategoryId, cp.ProductId });
 
             modelBuilder.Entity<Product>().HasOne(p => p.Buyer).WithMany(x => x.ProductsBought).HasForeignKey(p => p.BuyerId);
 

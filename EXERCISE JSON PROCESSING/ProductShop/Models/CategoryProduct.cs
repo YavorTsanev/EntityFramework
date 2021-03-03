@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ProductShop.Models
 {
-    public class CategoryProducts
+    public class CategoryProduct
     {
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }

@@ -23,7 +23,7 @@ namespace ProductShop
 
             //var usersJson = File.ReadAllText("../../../Datasets/categories-products.json");
 
-            var result = GetSoldProducts(db);
+            var result = GetCategoriesByProductsCount(db);
 
             if (!Directory.Exists(directoryPath))
             {
@@ -32,7 +32,7 @@ namespace ProductShop
 
             
 
-            File.WriteAllText(directoryPath + "/users-sold-products.json", result);
+            File.WriteAllText(directoryPath + "/categories-by-products.json", result);
 
             //Console.WriteLine(result);
         }
@@ -80,7 +80,7 @@ namespace ProductShop
 
         public static string ImportCategoryProducts(ProductShopContext context, string inputJson)
         {
-            var categoryProducts = JsonConvert.DeserializeObject<List<CategoryProducts>>(inputJson);
+            var categoryProducts = JsonConvert.DeserializeObject<List<CategoryProduct>>(inputJson);
 
             context.AddRange(categoryProducts);
             context.SaveChanges();
@@ -101,5 +101,16 @@ namespace ProductShop
 
             return JsonConvert.SerializeObject(users,Formatting.Indented);
         }
+
+        public static string GetCategoriesByProductsCount(ProductShopContext context)
+        {
+            var categories = context.Categories.ProjectTo<CategoiesByProducts>().OrderByDescending(x => x.ProductsCount).ToList();
+
+            //var categories = context.Categories.Select(x => new { category = x.Name, productsCount = x.CategoryProducts.Count, averagePrice =string.Format("{0:f2}",x.CategoryProducts.Average(x => x.Product.Price)) , totalRevenue = $"{x.CategoryProducts.Sum(x => x.Product.Price):f2}"}).OrderByDescending(x => x.productsCount).ToList();
+
+            return JsonConvert.SerializeObject(categories, Formatting.Indented);
+        }
+
+
     }
 }

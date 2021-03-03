@@ -12,6 +12,6 @@ namespace ProductShop.Models
         [Required, MinLength(3), StringLength(15)]
         public string Name { get; set; }
 
-        public virtual ICollection<CategoryProducts> CategoryProducts { get; set; } = new HashSet<CategoryProducts>();
+        public virtual ICollection<CategoryProduct> CategoryProducts { get; set; } = new HashSet<CategoryProduct>();
     }
 }
