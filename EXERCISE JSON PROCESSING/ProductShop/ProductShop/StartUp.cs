@@ -11,6 +11,7 @@ namespace ProductShop
 {
     public class StartUp
     {
+        private static string directoryPath = "../../../Datasets/Result";
 
         static void Main(string[] args)
         {
@@ -22,7 +23,14 @@ namespace ProductShop
 
             var result = GetProductsInRange(db);
 
-            Console.WriteLine(result);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            File.WriteAllText(directoryPath + "/products-in-range.json", result);
+
+            //Console.WriteLine(result);
         }
 
         public static string ImportUsers(ProductShopContext context, string inputJson)
