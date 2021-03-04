@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarDealer.Data.Migrations
 {
     [DbContext(typeof(CarDealerContext))]
-    [Migration("20210304112122_Initial")]
-    partial class Initial
+    [Migration("20210304175227_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -25,17 +25,13 @@ namespace CarDealer.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Make")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Make");
 
-                    b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model");
 
-                    b.Property<int>("TravelledDistance")
-                        .HasColumnType("int");
+                    b.Property<long>("TravelledDistance");
 
                     b.HasKey("Id");
 
@@ -46,17 +42,13 @@ namespace CarDealer.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("BirthDate");
 
-                    b.Property<bool>("IsYoungDriver")
-                        .HasColumnType("bit");
+                    b.Property<bool>("IsYoungDriver");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -67,20 +59,15 @@ namespace CarDealer.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<int>("Quantity");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
+                    b.Property<int>("SupplierId");
 
                     b.HasKey("Id");
 
@@ -91,11 +78,9 @@ namespace CarDealer.Data.Migrations
 
             modelBuilder.Entity("CarDealer.Models.PartCar", b =>
                 {
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
+                    b.Property<int>("CarId");
 
-                    b.Property<int>("PartId")
-                        .HasColumnType("int");
+                    b.Property<int>("PartId");
 
                     b.HasKey("CarId", "PartId");
 
@@ -108,17 +93,13 @@ namespace CarDealer.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
+                    b.Property<int>("CarId");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                    b.Property<int>("CustomerId");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Discount");
 
                     b.HasKey("Id");
 
@@ -133,14 +114,11 @@ namespace CarDealer.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsImporter")
-                        .HasColumnType("bit");
+                    b.Property<bool>("IsImporter");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -152,8 +130,7 @@ namespace CarDealer.Data.Migrations
                     b.HasOne("CarDealer.Models.Supplier", "Supplier")
                         .WithMany("Parts")
                         .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CarDealer.Models.PartCar", b =>
@@ -161,14 +138,12 @@ namespace CarDealer.Data.Migrations
                     b.HasOne("CarDealer.Models.Car", "Car")
                         .WithMany("PartCars")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CarDealer.Models.Part", "Part")
                         .WithMany("PartCars")
                         .HasForeignKey("PartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CarDealer.Models.Sale", b =>
@@ -176,14 +151,12 @@ namespace CarDealer.Data.Migrations
                     b.HasOne("CarDealer.Models.Car", "Car")
                         .WithMany("Sales")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CarDealer.Models.Customer", "Customer")
                         .WithMany("Sales")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

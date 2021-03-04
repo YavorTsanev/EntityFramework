@@ -20,7 +20,7 @@ namespace CarDealer
 
             string json = File.ReadAllText("../../../Datasets/cars.json");
 
-            var result = ImportCars(db,json);
+            var result = ImportCars(db, json);
 
             Console.WriteLine(result);
         }
@@ -32,9 +32,9 @@ namespace CarDealer
 
         public static string ImportSuppliers(CarDealerContext context, string inputJson)
         {
-            
 
-            var suppliresDtos =  JsonConvert.DeserializeObject<SupplierDto[]>(inputJson);
+
+            var suppliresDtos = JsonConvert.DeserializeObject<SupplierDto[]>(inputJson);
 
             var suppliers = Mapper.Map<Supplier[]>(suppliresDtos);
 
@@ -62,7 +62,37 @@ namespace CarDealer
 
         public static string ImportCars(CarDealerContext context, string inputJson)
         {
-            var
+            var cars = JsonConvert.DeserializeObject<CarDto[]>(inputJson);
+
+            foreach (var carDto in cars)
+            {
+                Car car = new Car
+                {
+                    Make = carDto.Make,
+                    Model = carDto.Model,
+                    TravelledDistance = carDto.TravelledDistance
+                };
+
+                context.Cars.Add(car);
+
+                foreach (var partId in carDto.PartsId)
+                {
+                    PartCar partCar = new PartCar
+                    {
+                        CarId = car.Id,
+                        PartId = partId
+                    };
+
+                    if (car.PartCars.FirstOrDefault(p => p.PartId == partId) == null)
+                    {
+                        context.PartCars.Add(partCar);
+                    }
+                }
+            }
+
+            context.SaveChanges();
+
+            return $"Successfully imported {cars.Count()}.";
         }
 
     }

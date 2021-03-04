@@ -17,7 +17,7 @@ namespace CarDealer.Models
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
 
-        public virtual ICollection<PartCar> PartCars { get; set; } = new HashSet<PartCar>();
+        public virtual ICollection<PartCar> PartCars { get; set; }
 
 
     }

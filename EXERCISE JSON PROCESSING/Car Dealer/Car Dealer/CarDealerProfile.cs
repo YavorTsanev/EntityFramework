@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using AutoMapper;
 using CarDealer.Dto.Import;
@@ -14,6 +15,7 @@ namespace CarDealer
             CreateMap<SupplierDto, Supplier>();
 
             CreateMap<PartDto, Part>();
+
         }
     }
 }

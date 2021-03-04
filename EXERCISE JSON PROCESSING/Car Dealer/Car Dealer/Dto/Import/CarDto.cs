@@ -10,8 +10,8 @@ namespace CarDealer.Dto.Import
 
         public string Model { get; set; }
 
-        public int TravelledDistance { get; set; }
+        public long TravelledDistance { get; set; }
 
-        public List<int> PartIds { get; set; }
+        public ICollection<int> PartsId { get; set; }
     }
 }

@@ -12,10 +12,11 @@ namespace CarDealer.Models
 
         public string Model { get; set; }
 
-        public int TravelledDistance { get; set; }
+        public long TravelledDistance { get; set; }
 
-        public virtual ICollection<PartCar> PartCars { get; set; } = new HashSet<PartCar>();
+        public ICollection<Sale> Sales { get; set; }
 
-        public virtual ICollection<Sale> Sales { get; set; } = new HashSet<Sale>();
+        public ICollection<PartCar> PartCars { get; set; } = new List<PartCar>();
+
     }
 }
