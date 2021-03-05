@@ -201,7 +201,21 @@ namespace CarDealer
 
         public static string GetSalesWithAppliedDiscount(CarDealerContext context)
         {
+            var sales = context.Sales.Take(10).Select(s => new
+            {
+                car = new ExportCarDto
+                {
+                    Make = s.Car.Make,
+                    Model = s.Car.Model,
+                    TravelledDistance = s.Car.TravelledDistance
+                },
+                customerName = s.Customer.Name,
+                Discount = s.Discount.ToString("f2"),
+                price = s.Car.PartCars.Select(p => p.Part.Price).Sum().ToString("f2"),
+                priceWithDiscount = (s.Car.PartCars.Select(p => p.Part.Price).Sum() - (s.Car.PartCars.Select(p => p.Part.Price).Sum() * s.Discount / 100)).ToString("f2")
+            });
 
+            return JsonConvert.SerializeObject(sales,Formatting.Indented);
         }
 
     }
