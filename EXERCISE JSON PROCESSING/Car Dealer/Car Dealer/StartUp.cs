@@ -95,5 +95,19 @@ namespace CarDealer
             return $"Successfully imported {cars.Count()}.";
         }
 
+        public static string ImportCustomers(CarDealerContext context, string inputJson)
+        {
+            var customersDto = JsonConvert.DeserializeObject<List<CustomerDto>>(inputJson);
+
+            var customers = Mapper.Map<List<Customer>>(customersDto);
+
+            context.Customers.AddRange(customers);
+
+            context.SaveChanges();
+
+
+            return $"Successfully imported {customers.Count}.";
+        }
+
     }
 }

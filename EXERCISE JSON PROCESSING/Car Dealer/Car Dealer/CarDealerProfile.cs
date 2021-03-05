@@ -16,6 +16,8 @@ namespace CarDealer
 
             CreateMap<PartDto, Part>();
 
+            CreateMap<CustomerDto, Customer>();
+
         }
     }
 }
