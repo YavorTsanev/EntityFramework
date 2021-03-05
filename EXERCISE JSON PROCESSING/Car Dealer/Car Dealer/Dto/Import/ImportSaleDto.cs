@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CarDealer.Dto.Import
 {
-    public class SaleDto
+    public class ImportSaleDto
     {
         public decimal Discount { get; set; }
 

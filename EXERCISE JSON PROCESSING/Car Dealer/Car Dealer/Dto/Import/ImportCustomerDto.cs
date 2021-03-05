@@ -4,14 +4,12 @@ using System.Text;
 
 namespace CarDealer.Dto.Import
 {
-    public class PartDto
+    public class CustomerDtoImport
     {
         public string Name { get; set; }
 
-        public decimal Price { get; set; }
+        public DateTime BirthDate { get; set; }
 
-        public int Quantity { get; set; }
-
-        public int SupplierId { get; set; }
+        public bool IsYoungDriver { get; set; }
     }
 }

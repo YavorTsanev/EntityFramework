@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using CarDealer.Dto.Export;
 using CarDealer.Dto.Import;
 using CarDealer.Models;
 
@@ -12,11 +14,15 @@ namespace CarDealer
     {
         public CarDealerProfile()
         {
-            CreateMap<SupplierDto, Supplier>();
+            CreateMap<ImportSupplierDto, Supplier>();
 
-            CreateMap<PartDto, Part>();
+            CreateMap<ImportPartDto, Part>();
 
-            CreateMap<CustomerDto, Customer>();
+            CreateMap<CustomerDtoImport, Customer>();
+
+            CreateMap<ImportSaleDto, Sale>();
+
+           CreateMap<Customer, ExportCustomerDto>().ForMember(x => x.BirthDate, o => o.MapFrom(x => x.BirthDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)));
 
         }
     }

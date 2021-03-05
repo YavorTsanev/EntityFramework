@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CarDealer.Dto.Import
 {
-    public class CarDto
+    public class ImportCarDto
     {
         public string Make { get; set; }
 

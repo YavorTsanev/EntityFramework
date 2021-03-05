@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CarDealer.Data;
+using CarDealer.Dto.Export;
 using CarDealer.Dto.Import;
 using CarDealer.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -18,11 +21,16 @@ namespace CarDealer
 
             var db = new CarDealerContext();
 
-            string json = File.ReadAllText("../../../Datasets/cars.json");
+            //string json = File.ReadAllText("../../../Datasets/sales.json");
 
-            var result = ImportCars(db, json);
+            var result = GetOrderedCustomers(db);
+            var directoryPath = @"../../../Results";
 
-            Console.WriteLine(result);
+            Directory.CreateDirectory(directoryPath);
+
+            File.WriteAllText(directoryPath + "/ordered-customers.json", result);
+
+            //Console.WriteLine(result);
         }
 
         public static void InitializeMapper()
@@ -34,7 +42,7 @@ namespace CarDealer
         {
 
 
-            var suppliresDtos = JsonConvert.DeserializeObject<SupplierDto[]>(inputJson);
+            var suppliresDtos = JsonConvert.DeserializeObject<ImportSupplierDto[]>(inputJson);
 
             var suppliers = Mapper.Map<Supplier[]>(suppliresDtos);
 
@@ -48,7 +56,7 @@ namespace CarDealer
         public static string ImportParts(CarDealerContext context, string inputJson)
         {
 
-            var partDtos = JsonConvert.DeserializeObject<List<PartDto>>(inputJson);
+            var partDtos = JsonConvert.DeserializeObject<List<ImportPartDto>>(inputJson);
 
             var parts = Mapper.Map<List<Part>>(partDtos).Where(p => context.Suppliers.Any(s => s.Id == p.SupplierId));
 
@@ -62,7 +70,7 @@ namespace CarDealer
 
         public static string ImportCars(CarDealerContext context, string inputJson)
         {
-            var cars = JsonConvert.DeserializeObject<CarDto[]>(inputJson);
+            var cars = JsonConvert.DeserializeObject<ImportCarDto[]>(inputJson);
 
             foreach (var carDto in cars)
             {
@@ -97,7 +105,7 @@ namespace CarDealer
 
         public static string ImportCustomers(CarDealerContext context, string inputJson)
         {
-            var customersDto = JsonConvert.DeserializeObject<List<CustomerDto>>(inputJson);
+            var customersDto = JsonConvert.DeserializeObject<List<Dto.Export.ExportCustomerDto>>(inputJson);
 
             var customers = Mapper.Map<List<Customer>>(customersDto);
 
@@ -107,6 +115,42 @@ namespace CarDealer
 
 
             return $"Successfully imported {customers.Count}.";
+        }
+
+        public static string ImportSales(CarDealerContext context, string inputJson)
+        {
+            var salesDto = JsonConvert.DeserializeObject<List<ImportSaleDto>>(inputJson);
+
+            var sales = Mapper.Map<List<Sale>>(salesDto);
+
+            context.Sales.AddRange(sales);
+
+            context.SaveChanges();
+
+            return $"Successfully imported {sales.Count}.";
+        }
+
+        public static string GetOrderedCustomers(CarDealerContext context)
+        {
+            //var customers = context.Customers.OrderBy(c => c.BirthDate).ThenBy(c => c.IsYoungDriver).Select(c => new { c.Name, BirthDate = c.BirthDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), c.IsYoungDriver });
+
+            var costomersDto = context.Customers.OrderBy(c => c.BirthDate).ThenBy(c => c.IsYoungDriver).ProjectTo<ExportCustomerDto>();
+
+            var settings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+            };
+
+            return JsonConvert.SerializeObject(costomersDto, settings);
+        }
+
+        public static string GetCarsFromMakeToyota(CarDealerContext context)
+        {
+            var cars = context.Cars.Where(c => c.Make == "Toyota").OrderBy(c => c.Model).ThenByDescending(c => c.TravelledDistance).ProjectTo<ExportCarDtoExport>();
+
+            var settings =new JsonSerializerSettings{Formatting = Formatting.Indented};
+
+            return JsonConvert.SerializeObject(cars,settings);
         }
 
     }
