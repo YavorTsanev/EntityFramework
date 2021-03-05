@@ -23,12 +23,12 @@ namespace CarDealer
 
             //string json = File.ReadAllText("../../../Datasets/sales.json");
 
-            var result = GetOrderedCustomers(db);
+            var result = GetCarsWithTheirListOfParts(db);
             var directoryPath = @"../../../Results";
 
             Directory.CreateDirectory(directoryPath);
 
-            File.WriteAllText(directoryPath + "/ordered-customers.json", result);
+            File.WriteAllText(directoryPath + "/cars-and-parts.json", result);
 
             //Console.WriteLine(result);
         }
@@ -151,6 +151,23 @@ namespace CarDealer
             var settings =new JsonSerializerSettings{Formatting = Formatting.Indented};
 
             return JsonConvert.SerializeObject(cars,settings);
+        }
+
+        public static string GetLocalSuppliers(CarDealerContext context)
+        {
+            var suppliers = context.Suppliers.Where(s => s.IsImporter == false).ProjectTo<ExportSupplierDto>();
+
+            return JsonConvert.SerializeObject(suppliers, Formatting.Indented);
+        }
+
+        public static string GetCarsWithTheirListOfParts(CarDealerContext context)
+        {
+            var cars = context.Cars.Select(c => new { car = new { c.Make, c.Model, c.TravelledDistance }, parts = c.PartCars.Select(pc => new { Name = pc.Part.Name, Price = $"{pc.Part.Price:f2}"})} );
+
+
+
+            return JsonConvert.SerializeObject(cars, Formatting.Indented);
+
         }
 
     }

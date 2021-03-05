@@ -24,6 +24,8 @@ namespace CarDealer
 
            CreateMap<Customer, ExportCustomerDto>().ForMember(x => x.BirthDate, o => o.MapFrom(x => x.BirthDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)));
 
+            CreateMap<Supplier, ExportSupplierDto>();
+
         }
     }
 }
