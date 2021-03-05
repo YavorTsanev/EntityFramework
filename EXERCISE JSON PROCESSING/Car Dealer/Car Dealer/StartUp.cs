@@ -5,6 +5,7 @@ using CarDealer.Dto.Export;
 using CarDealer.Dto.Import;
 using CarDealer.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,14 +22,15 @@ namespace CarDealer
 
             var db = new CarDealerContext();
 
-            //string json = File.ReadAllText("../../../Datasets/sales.json");
-
-            var result = GetCarsWithTheirListOfParts(db);
             var directoryPath = @"../../../Results";
 
             Directory.CreateDirectory(directoryPath);
 
-            File.WriteAllText(directoryPath + "/cars-and-parts.json", result);
+            //string json = File.ReadAllText("../../../Datasets/sales.json");
+
+            var result = GetSalesWithAppliedDiscount(db);
+
+            File.WriteAllText(directoryPath + "/sales-discounts.json", result);
 
             //Console.WriteLine(result);
         }
@@ -146,11 +148,11 @@ namespace CarDealer
 
         public static string GetCarsFromMakeToyota(CarDealerContext context)
         {
-            var cars = context.Cars.Where(c => c.Make == "Toyota").OrderBy(c => c.Model).ThenByDescending(c => c.TravelledDistance).ProjectTo<ExportCarDtoExport>();
+            var cars = context.Cars.Where(c => c.Make == "Toyota").OrderBy(c => c.Model).ThenByDescending(c => c.TravelledDistance).ProjectTo<ExportCarDto>();
 
-            var settings =new JsonSerializerSettings{Formatting = Formatting.Indented};
+            var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
 
-            return JsonConvert.SerializeObject(cars,settings);
+            return JsonConvert.SerializeObject(cars, settings);
         }
 
         public static string GetLocalSuppliers(CarDealerContext context)
@@ -162,11 +164,43 @@ namespace CarDealer
 
         public static string GetCarsWithTheirListOfParts(CarDealerContext context)
         {
-            var cars = context.Cars.Select(c => new { car = new { c.Make, c.Model, c.TravelledDistance }, parts = c.PartCars.Select(pc => new { Name = pc.Part.Name, Price = $"{pc.Part.Price:f2}"})} );
+            //var carsParts = context.Cars.Select(c => new { car = new { c.Make, c.Model, c.TravelledDistance }, parts = c.PartCars.Select(pc => new { Name = pc.Part.Name, Price = $"{pc.Part.Price:f2}" }) });
 
+            var carsParts = context.Cars.Select(c => new ExportCarPartDto
+            {
+                Car = new ExportCarDto
+                {
+                    Make = c.Make,
+                    Model = c.Model,
+                    TravelledDistance = c.TravelledDistance
+                },
+                Parts = c.PartCars.Select(p => new ExportPartDto
+                {
+                    Name = p.Part.Name,
+                    Price = $"{p.Part.Price:f2}"
+                }).ToList()
+            });
 
+            var settings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+            };
 
-            return JsonConvert.SerializeObject(cars, Formatting.Indented);
+            return JsonConvert.SerializeObject(carsParts, settings);
+
+        }
+
+        public static string GetTotalSalesByCustomer(CarDealerContext context)
+        {
+            //var customers = context.Customers.Where(c => c.Sales.Count != 0).Select(c => new { fullName = c.Name, boughtCars = c.Sales.Count, spentMoney = c.Sales.SelectMany(s => s.Car.PartCars.Select(pc => pc.Part.Price)).Sum() });
+
+            var customers = context.Customers.Where(c => c.Sales.Any()).ProjectTo<ExportCustomerTotalSlaes>().OrderByDescending(c => c.SpentMoney).ThenByDescending(c => c.BoughtCars);
+
+            return JsonConvert.SerializeObject(customers, Formatting.Indented);
+        }
+
+        public static string GetSalesWithAppliedDiscount(CarDealerContext context)
+        {
 
         }
 

@@ -26,6 +26,8 @@ namespace CarDealer
 
             CreateMap<Supplier, ExportSupplierDto>();
 
+            CreateMap<Customer, ExportCustomerTotalSlaes>().ForMember(x => x.FullName, o => o.MapFrom(x => x.Name)).ForMember(x => x.BoughtCars, o => o.MapFrom(x => x.Sales.Count)).ForMember(x => x.SpentMoney, o => o.MapFrom(x => x.Sales.SelectMany(s => s.Car.PartCars.Select(p => p.Part.Price)).Sum()));
+
         }
     }
 }
