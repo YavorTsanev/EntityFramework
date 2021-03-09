@@ -9,20 +9,26 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 using System.Linq;
+using AutoMapper.QueryableExtensions;
 
 namespace ProductShop
 {
     public class StartUp
     {
+        private static readonly MapperConfiguration config = new MapperConfiguration(cfg => cfg.AddProfile<ProductShopProfile>());
+
         private static readonly IMapper mapper = InitializeMapper();
+
         public static void Main(string[] args)
         {
             var db = new ProductShopContext();
 
-            var xmlString = File.ReadAllText("../../../Datasets/categories-products.xml");
-            var result = ImportCategoryProducts(db, xmlString);
+            //var xmlString = File.ReadAllText("../../../Datasets/categories-products.xml");
+            Directory.CreateDirectory("../../../Results");
 
-            Console.WriteLine(result);
+            var result = GetProductsInRange(db);
+
+            File.WriteAllText("../../../Results" + "products-in-range.xml", result);
 
         }
 
@@ -95,7 +101,14 @@ namespace ProductShop
             return $"Successfully imported {categoryProducts.Count}";
         }
 
+        public static string GetProductsInRange(ProductShopContext context)
+        {
+            var products = context.Products.Where(x => x.Price >= 500 && x.Price <= 1000).ProjectTo<ExportProductDto>(config).OrderBy(x => x.Price).Take(10).ToList();
 
+            var result = XmlConverter.Serialize(products, "Products");
+
+            return result;
+        }
     }
 }
 
