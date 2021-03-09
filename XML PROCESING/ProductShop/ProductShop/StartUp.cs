@@ -14,12 +14,13 @@ namespace ProductShop
 {
     public class StartUp
     {
+        private static readonly IMapper mapper = InitializeMapper();
         public static void Main(string[] args)
         {
             var db = new ProductShopContext();
 
-            var xmlString = File.ReadAllText("../../../Datasets/categories.xml");
-            var result = ImportCategories(db, xmlString);
+            var xmlString = File.ReadAllText("../../../Datasets/categories-products.xml");
+            var result = ImportCategoryProducts(db, xmlString);
 
             Console.WriteLine(result);
 
@@ -71,7 +72,7 @@ namespace ProductShop
 
             var categoryDtos = (List<ImportCategoryDto>)xmlSerializer.Deserialize(new StringReader(inputXml));
 
-            var mapper = InitializeMapper();
+            //var mapper = InitializeMapper();
             var categories = mapper.Map<List<Category>>(categoryDtos).Where(c => c.Name != null).ToList();
 
             context.Categories.AddRange(categories);
@@ -79,6 +80,22 @@ namespace ProductShop
 
             return $"Successfully imported {categories.Count}";
         }
+
+        public static string ImportCategoryProducts(ProductShopContext context, string inputXml)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(List<ImportCategoryProductDto>), new XmlRootAttribute("CategoryProducts"));
+
+            var categoryProductDtos = (List<ImportCategoryProductDto>)xmlSerializer.Deserialize(new StringReader(inputXml));
+
+            var categoryProducts = mapper.Map<List<CategoryProduct>>(categoryProductDtos).Where(x => x.ProductId != 0 && x.CategoryId != 0).ToList();
+
+            context.CategoryProducts.AddRange(categoryProducts);
+            context.SaveChanges();
+
+            return $"Successfully imported {categoryProducts.Count}";
+        }
+
+
     }
 }
 
