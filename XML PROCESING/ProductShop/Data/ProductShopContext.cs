@@ -36,7 +36,16 @@ namespace ProductShop.Data
         {
             modelBuilder.Entity<CategoryProduct>().HasKey( x => new {x.ProductId, x.CategoryId });
 
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasMany(x => x.ProductsBought)
+                      .WithOne(x => x.Buyer)
+                      .HasForeignKey(x => x.BuyerId);
 
+                entity.HasMany(x => x.ProductsSold)
+                      .WithOne(x => x.Seller)
+                      .HasForeignKey(x => x.SellerId);
+            });
 
         }
     }

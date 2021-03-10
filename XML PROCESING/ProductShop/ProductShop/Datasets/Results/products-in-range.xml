@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<Products xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<?xml version="1.0" encoding="utf-16"?>
+<Products>
   <Product>
     <name>TRAMADOL HYDROCHLORIDE</name>
     <price>516.48</price>
@@ -7,22 +7,18 @@
   <Product>
     <name>Allopurinol</name>
     <price>518.50</price>
-    <buyername>Wallas Duffyn</buyername>
   </Product>
   <Product>
     <name>Parsley</name>
     <price>519.06</price>
-    <buyername>Brendin Predohl</buyername>
   </Product>
   <Product>
     <name>equaline</name>
     <price>520.45</price>
-    <buyername>Dannie Camellini</buyername>
   </Product>
   <Product>
     <name>Extra Strength Pain Reliever PM</name>
     <price>542.72</price>
-    <buyername>Wendel Stannering</buyername>
   </Product>
   <Product>
     <name>Propranolol Hydrochloride</name>
@@ -31,27 +27,17 @@
   <Product>
     <name>Prednisone</name>
     <price>550.72</price>
-    <buyername>Devland Vazquez</buyername>
   </Product>
   <Product>
     <name>TERSI</name>
     <price>554.91</price>
-    <buyername>Chrissy Falconbridge</buyername>
   </Product>
   <Product>
     <name>DAYWEAR PLUS MULTI PROTECTION TINTED MOISTURIZER</name>
     <price>555.12</price>
-    <buyername>Vinni Capaldo</buyername>
   </Product>
   <Product>
     <name>PLANTAGO LANCEOLATA POLLEN</name>
     <price>561.68</price>
-    <buyername>Seymour Greatrex</buyername>
   </Product>
-</Products>tDto>
-  <ExportProductDto>
-    <Name>PLANTAGO LANCEOLATA POLLEN</Name>
-    <Price>561.68</Price>
-    <BuyerName>Seymour Greatrex</BuyerName>
-  </ExportProductDto>
 </Products>

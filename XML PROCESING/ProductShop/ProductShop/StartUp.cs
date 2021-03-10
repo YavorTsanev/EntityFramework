@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 using System.Xml.Linq;
 using System.Linq;
 using AutoMapper.QueryableExtensions;
+using ProductShop.DTO.Export;
 
 namespace ProductShop
 {
@@ -17,18 +18,17 @@ namespace ProductShop
     {
         private static readonly MapperConfiguration config = new MapperConfiguration(cfg => cfg.AddProfile<ProductShopProfile>());
 
-        private static readonly IMapper mapper = InitializeMapper();
 
         public static void Main(string[] args)
         {
             var db = new ProductShopContext();
-
+            
             //var xmlString = File.ReadAllText("../../../Datasets/categories-products.xml");
-            Directory.CreateDirectory("../../../Results");
+            Directory.CreateDirectory("../../../Datasets/Results");
 
-            var result = GetProductsInRange(db);
+            var result = GetSoldProducts(db);
 
-            File.WriteAllText("../../../Results" + "products-in-range.xml", result);
+            File.WriteAllText("../../../Datasets/Results/" + "products-in-range.xml", result);
 
         }
 
@@ -78,7 +78,7 @@ namespace ProductShop
 
             var categoryDtos = (List<ImportCategoryDto>)xmlSerializer.Deserialize(new StringReader(inputXml));
 
-            //var mapper = InitializeMapper();
+            var mapper = InitializeMapper();
             var categories = mapper.Map<List<Category>>(categoryDtos).Where(c => c.Name != null).ToList();
 
             context.Categories.AddRange(categories);
@@ -92,7 +92,7 @@ namespace ProductShop
             var xmlSerializer = new XmlSerializer(typeof(List<ImportCategoryProductDto>), new XmlRootAttribute("CategoryProducts"));
 
             var categoryProductDtos = (List<ImportCategoryProductDto>)xmlSerializer.Deserialize(new StringReader(inputXml));
-
+            var mapper = InitializeMapper();
             var categoryProducts = mapper.Map<List<CategoryProduct>>(categoryProductDtos).Where(x => x.ProductId != 0 && x.CategoryId != 0).ToList();
 
             context.CategoryProducts.AddRange(categoryProducts);
@@ -108,6 +108,15 @@ namespace ProductShop
             var result = XmlConverter.Serialize(products, "Products");
 
             return result;
+        }
+
+        public static string GetSoldProducts(ProductShopContext context)
+        {
+            var usersSoldProducts = context.Users.Where(u => u.ProductsSold.Any()).OrderBy(u => u.LastName).ThenBy(u => u.FirstName).ProjectTo<ExportUserSoldProducts>(config).Take(5).ToList();
+
+            var result = XmlConverter.Serialize(usersSoldProducts, "Users");
+
+            return "";
         }
     }
 }
