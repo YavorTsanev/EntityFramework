@@ -26,9 +26,9 @@ namespace ProductShop
             //var xmlString = File.ReadAllText("../../../Datasets/categories-products.xml");
             Directory.CreateDirectory("../../../Datasets/Results");
 
-            var result = GetSoldProducts(db);
+            var result = GetUsersWithProducts(db);
 
-            File.WriteAllText("../../../Datasets/Results/" + "products-in-range.xml", result);
+            File.WriteAllText("../../../Datasets/Results/" + "users-and-products.xml", result);
 
         }
 
@@ -112,11 +112,44 @@ namespace ProductShop
 
         public static string GetSoldProducts(ProductShopContext context)
         {
-            var usersSoldProducts = context.Users.Where(u => u.ProductsSold.Any()).OrderBy(u => u.LastName).ThenBy(u => u.FirstName).ProjectTo<ExportUserSoldProducts>(config).Take(5).ToList();
+            var usersSoldProducts = context.Users.Where(u => u.ProductsSold.Any()).OrderBy(u => u.LastName).ThenBy(u => u.FirstName).ProjectTo<ExportUserDto>(config).Take(5).ToList();
 
             var result = XmlConverter.Serialize(usersSoldProducts, "Users");
 
             return "";
+        }
+
+        public static string GetCategoriesByProductsCount(ProductShopContext context)
+        {
+            var categories = context.Categories.ProjectTo<ExportCategoryDto>(config).OrderByDescending(x => x.Count).ThenBy(x => x.TotalRevenue).ToList();
+
+            return XmlConverter.Serialize(categories, "Categories");
+           
+        }
+
+        public static string GetUsersWithProducts(ProductShopContext context)
+        {
+            var users = new ExportUsersDto
+            {
+                Count = context.Users.Where(u => u.ProductsSold.Any()).Count(),
+                Users = context.Users.Where(u => u.ProductsSold.Any()).OrderByDescending(p => p.ProductsSold.Count()).Select(u => new ExportUserDto
+                {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Age = u.Age,
+                    SoldProducts = new ExportSoldProductsDto
+                    {
+                        Count = u.ProductsSold.Count(),
+                        Products = u.ProductsSold.Select(p => new ExportProductDto 
+                        {
+                            Name = p.Name,
+                            Price = p.Price
+                        }).OrderByDescending(p => p.Price).ToList()
+                    }
+                }).Take(10).ToList()
+            };
+
+            return XmlConverter.Serialize(users, "Users");
         }
     }
 }
