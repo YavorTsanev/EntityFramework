@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CarDealer.Data;
+using CarDealer.Dtos.Export;
 using CarDealer.Dtos.Import;
 using CarDealer.Models;
 using ProductShop;
@@ -18,13 +20,14 @@ namespace CarDealer
         public static void Main(string[] args)
         {
             var db = new CarDealerContext();
-            //db.Database.EnsureDeleted();
-            //db.Database.EnsureCreated();
+            Directory.CreateDirectory("../../../Results");
+            //var xmlStr = File.ReadAllText("../../../Datasets/sales.xml");
+            //var result = ImportSales(db, xmlStr);
+            //Console.WriteLine(result);
 
-            var xmlStr = File.ReadAllText("../../../Datasets/sales.xml");
-           var result = ImportSales(db, xmlStr);
+            var result = GetCarsWithDistance(db);
 
-            Console.WriteLine(result);
+            File.WriteAllText("../../../Results/" + "cars.xml", result);
         }
 
         public static string ImportSuppliers(CarDealerContext context, string inputXml)
@@ -109,6 +112,15 @@ namespace CarDealer
             context.SaveChanges();
 
             return $"Successfully imported {sales.Count}";
+        }
+
+        public static string GetCarsWithDistance(CarDealerContext context)
+        {
+            //Get all cars with distance more than 2,000,000.Order them by make, then by model alphabetically. Take top 10 records.
+
+            var cars = context.Cars.Where(c => c.TravelledDistance > 2000000).OrderBy(c => c.Make).ThenBy(x => x.Model).Take(10).ProjectTo<ExportCarDto>(config).ToList();
+
+            return XmlConverter.Serialize(cars, "cars");
         }
     }
 }
