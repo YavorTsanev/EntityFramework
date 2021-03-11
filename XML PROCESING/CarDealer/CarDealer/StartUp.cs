@@ -25,9 +25,9 @@ namespace CarDealer
             //var result = ImportSales(db, xmlStr);
             //Console.WriteLine(result);
 
-            var result = GetCarsWithDistance(db);
+            var result = GetCarsWithTheirListOfParts(db);
 
-            File.WriteAllText("../../../Results/" + "cars.xml", result);
+            File.WriteAllText("../../../Results/" + "cars-and-parts.xml", result);
         }
 
         public static string ImportSuppliers(CarDealerContext context, string inputXml)
@@ -121,6 +121,34 @@ namespace CarDealer
             var cars = context.Cars.Where(c => c.TravelledDistance > 2000000).OrderBy(c => c.Make).ThenBy(x => x.Model).Take(10).ProjectTo<ExportCarDto>(config).ToList();
 
             return XmlConverter.Serialize(cars, "cars");
+        }
+
+        public static string GetCarsFromMakeBmw(CarDealerContext context)
+        {
+            //Get all cars from make BMW and order them by model alphabetically and by travelled distance descending.
+
+            var bmvCars = context.Cars.Where(c => c.Make == "BMW").OrderBy(x => x.Model).ThenByDescending(x => x.TravelledDistance).ProjectTo<ExportBMVCarDto>(config).ToList();
+
+            return XmlConverter.Serialize(bmvCars, "cars");
+
+        }
+
+        public static string GetLocalSuppliers(CarDealerContext context)
+        {
+            //Get all suppliers that do not import parts from abroad.Get their id, name and the number of parts they can offer to supply.
+
+            var suppliers = context.Suppliers.Where(x => !x.IsImporter).ProjectTo<ExportSupplierDto>(config).ToList();
+
+            return XmlConverter.Serialize(suppliers, "suppliers");
+        }
+
+        public static string GetCarsWithTheirListOfParts(CarDealerContext context)
+        {
+            //Get all cars along with their list of parts.For the car get only make, model and travelled distance and for the parts get only name and price and sort all parts by price(descending).Sort all cars by travelled distance(descending) then by model(ascending).Select top 5 records.
+
+            var carsAndParts = context.Cars.ProjectTo<ExportCarAndPartsDto>(config).OrderByDescending(x => x.TravelledDistance).ThenBy(x => x.Model).Take(5).ToList();
+
+            return XmlConverter.Serialize(carsAndParts, "cars");
         }
     }
 }
