@@ -11,6 +11,12 @@ namespace CarDealer
             CreateMap<ImportSupplierDto, Supplier>();
 
             CreateMap<ImportPartDto, Part>();
+
+            CreateMap<ImportCarDto, Car>();
+
+            CreateMap<ImportCustomer, Customer>();
+
+            CreateMap<ImportSaleDto, Sale>();
         }
     }
 }
