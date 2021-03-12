@@ -165,8 +165,11 @@ namespace CarDealer
 
         public static string GetSalesWithAppliedDiscount(CarDealerContext context)
         {
+            //Get all sales with information about the car, customer and price of the sale with and without discount.
 
-            return "";
+            var salesWithInfo = context.Sales.ProjectTo<ExportSaleWithInfoDto>(config).ToList();
+
+            return XmlConverter.Serialize(salesWithInfo, "sales");
         }
     }
 }

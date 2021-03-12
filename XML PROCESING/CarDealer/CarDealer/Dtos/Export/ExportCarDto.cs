@@ -8,13 +8,13 @@ namespace CarDealer.Dtos.Export
     [XmlType("car")]
     public class ExportCarDto
     {
-        [XmlElement("make")]
+        [XmlAttribute("make")]
         public string Make { get; set; }
 
-        [XmlElement("model")]
+        [XmlAttribute("model")]
         public string Model { get; set; }
 
-        [XmlElement("travelled-distance")]
+        [XmlAttribute("travelled-distance")]
         public long TravelledDistance { get; set; }
 
     }
