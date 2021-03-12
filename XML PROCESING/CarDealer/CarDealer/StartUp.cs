@@ -25,9 +25,9 @@ namespace CarDealer
             //var result = ImportSales(db, xmlStr);
             //Console.WriteLine(result);
 
-            var result = GetCarsWithTheirListOfParts(db);
+            var result = GetSalesWithAppliedDiscount(db);
 
-            File.WriteAllText("../../../Results/" + "cars-and-parts.xml", result);
+            File.WriteAllText("../../../Results/" + "sales-discounts.xml", result);
         }
 
         public static string ImportSuppliers(CarDealerContext context, string inputXml)
@@ -149,6 +149,24 @@ namespace CarDealer
             var carsAndParts = context.Cars.ProjectTo<ExportCarAndPartsDto>(config).OrderByDescending(x => x.TravelledDistance).ThenBy(x => x.Model).Take(5).ToList();
 
             return XmlConverter.Serialize(carsAndParts, "cars");
+        }
+
+        public static string GetTotalSalesByCustomer(CarDealerContext context)
+        {
+
+            //Get all customers that have bought at least 1 car and get their names, bought cars count and total spent money on cars.Order the result list by total spent money descending.
+
+            var customersAndSales = context.Customers.Where(c => c.Sales.Any()).ProjectTo<ExportCustomerAndSale>(config).OrderByDescending(x => x.SpentMoney).ToList();
+
+
+
+            return XmlConverter.Serialize(customersAndSales, "customers");
+        }
+
+        public static string GetSalesWithAppliedDiscount(CarDealerContext context)
+        {
+
+            return "";
         }
     }
 }

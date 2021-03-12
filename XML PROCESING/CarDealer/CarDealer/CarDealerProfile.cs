@@ -21,6 +21,8 @@ namespace CarDealer
             CreateMap<Car, ExportBMVCarDto>();
             CreateMap<Supplier, ExportSupplierDto>();
             CreateMap<Car, ExportCarAndPartsDto>().ForMember(x => x.Parts, o => o.MapFrom(x => x.PartCars.Select( p => new ExportPartDto { Name = p.Part.Name, Price = p.Part.Price}).OrderByDescending(p => p.Price)));
+
+            CreateMap<Customer, ExportCustomerAndSale>().ForMember(x => x.SpentMoney, o => o.MapFrom(x => x.Sales.SelectMany(s => s.Car.PartCars.Select(p => p.Part.Price)).Sum()));
         }
     }
 }
