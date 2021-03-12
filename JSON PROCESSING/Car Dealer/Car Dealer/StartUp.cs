@@ -26,13 +26,13 @@ namespace CarDealer
 
             Directory.CreateDirectory(directoryPath);
 
-            //string json = File.ReadAllText("../../../Datasets/sales.json");
+            string json = File.ReadAllText("../../../Datasets/sales.json");
 
-            var result = GetSalesWithAppliedDiscount(db);
+            var result = ImportSales(db, json);
 
-            File.WriteAllText(directoryPath + "/sales-discounts.json", result);
+            //File.WriteAllText(directoryPath + "/sales-discounts.json", result);
 
-            //Console.WriteLine(result);
+            Console.WriteLine(result);
         }
 
         public static void InitializeMapper()
