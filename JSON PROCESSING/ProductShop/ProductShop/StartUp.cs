@@ -137,7 +137,7 @@ namespace ProductShop
             //};
 
             var users = context
-                .Users.ToList()
+                .Users
                 .Where(u => u.ProductsSold.Any(ps => ps.Buyer != null))
                 .OrderByDescending(u => u.ProductsSold.Count(ps => ps.Buyer != null))
                 .Select(u => new
