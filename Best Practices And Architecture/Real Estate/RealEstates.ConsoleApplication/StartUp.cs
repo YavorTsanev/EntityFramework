@@ -1,12 +1,14 @@
-﻿using System;
+﻿using RealEstates.Data;
+using System;
 
 namespace RealEstates.ConsoleApplication
 {
-    class StartUp
+    public class StartUp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var db = new RealEstateDbContext();
+
         }
     }
 }
