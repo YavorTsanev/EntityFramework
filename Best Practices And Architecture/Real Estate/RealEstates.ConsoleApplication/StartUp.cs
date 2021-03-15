@@ -6,7 +6,6 @@ namespace RealEstates.ConsoleApplication
     {
         static void Main(string[] args)
         {
-            yooooooooooooooo
             Console.WriteLine("Hello World!");
         }
     }
