@@ -1,4 +1,5 @@
 ﻿using RealEstates.Data;
+using RealEstates.Services;
 using System;
 
 namespace RealEstates.ConsoleApplication
@@ -8,6 +9,10 @@ namespace RealEstates.ConsoleApplication
         static void Main(string[] args)
         {
             var db = new RealEstateDbContext();
+
+            var propertyService = new PropetiesService(db);
+
+            propertyService.Create("Трявна",130, 2019, 100000, "Апартамент", "Тухла", 6, 6);
 
         }
     }

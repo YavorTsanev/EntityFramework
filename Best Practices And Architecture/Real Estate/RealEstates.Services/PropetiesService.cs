@@ -54,8 +54,6 @@ namespace RealEstates.Services
             return db.RealEstateProperties.Where(x => x.Year >= minYear && x.Year <= maxYear && x.Size >= minSize && x.Size <= maxSize).Select(MapToPropertyViewModel()).OrderByDescending(x => x.Price).ToList();
         }
 
-        
-
         public IEnumerable<PropertyViewModel> SearchByPrice(int minPrice, int maxPrice)
         {
             return db.RealEstateProperties.Where(x => x.Price >= minPrice && x.Price <= maxPrice).Select(MapToPropertyViewModel()).OrderByDescending(x => x.Price).ToList();
@@ -63,7 +61,37 @@ namespace RealEstates.Services
 
         public void UpdateTags(int propertyId)
         {
-            throw new NotImplementedException();
+            var property = db.RealEstateProperties.FirstOrDefault(x => x.Id == propertyId);
+
+            property.Tags.Clear();
+
+            if (property.Year.HasValue && property.Year < 1990)
+            {
+                property.Tags.Add(new RealEstatePropertyTag { Tag = GetOrCreateTag("Old Building")});
+            }
+
+            if (property.Year.HasValue && property.Year > 2018 && property. TotalNumberOfFloors > 5)
+            {
+                property.Tags.Add(new RealEstatePropertyTag { Tag = GetOrCreateTag("Has Parking") });
+            }
+
+            if (property.Size > 120)
+            {
+                property.Tags.Add(new RealEstatePropertyTag { Tag = GetOrCreateTag("Huge Building") });
+            }
+
+            if (property.Floor == property.TotalNumberOfFloors)
+            {
+                property.Tags.Add(new RealEstatePropertyTag { Tag = GetOrCreateTag("Last Floor") });
+            }
+
+            db.SaveChanges();
+        }
+
+        private Tag GetOrCreateTag(string tagName)
+        {
+            var tag = db.Tags.FirstOrDefault(x => x.Name.Trim() == tagName.Trim());
+            return tag ?? new Tag { Name = tagName };
         }
 
         private static Expression<Func<RealEstateProperty, PropertyViewModel>> MapToPropertyViewModel()

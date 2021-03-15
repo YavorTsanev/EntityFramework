@@ -25,6 +25,8 @@ namespace RealEstates.Data
 
         public DbSet<RealEstateProperty> RealEstateProperties { get; set; }
 
+        public DbSet<Tag> Tags { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
