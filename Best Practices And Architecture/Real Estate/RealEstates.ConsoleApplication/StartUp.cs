@@ -13,20 +13,27 @@ namespace RealEstates.ConsoleApplication
     {
         static void Main(string[] args)
         {
+            Directory.CreateDirectory("../../../Result");
             var db = new RealEstateDbContext();
 
-            //var district = new DistrictService(db);
-            //Directory.CreateDirectory("../../../Result");
+            //Console.Write("MinPrice: ");
+            //var minPrice = int.Parse(Console.ReadLine());
+            //Console.Write("MaxPrice: ");
+            //var maxPrice = int.Parse(Console.ReadLine());
+            //var property = new PropetiesService(db);
+            //var properties = property.SearchByPrice(minPrice, maxPrice);
 
 
-            //var districts = district.GetTopDistrictsByAveragePrice();
 
-            //var options = new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.All) };
-            //var json = JsonSerializer.Serialize(districts, options);
+            var district = new DistrictService(db);
+            var districts = district.GetTopDistrictsByAveragePrice();
 
-            
+            var options = new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.All) };
+            var json = JsonSerializer.Serialize(districts, options);
 
-            //File.WriteAllText("../../../Result/" + "Top10Districts.json", json);
+
+
+            File.WriteAllText("../../../Result/" + "Top10Districts.json", json);
 
             //Console.WriteLine(json);
 
