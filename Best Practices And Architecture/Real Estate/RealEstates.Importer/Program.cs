@@ -1,5 +1,11 @@
-﻿using System;
+﻿using RealEstates.Data;
+using RealEstates.Services;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace RealEstates.Importer
 {
@@ -9,6 +15,28 @@ namespace RealEstates.Importer
         {
             var jsonString = File.ReadAllText("imot.bg-raw-data-2020-07-23.json");
 
+            var jsonProperties = JsonSerializer.Deserialize<List<JsonProperty>>(jsonString);
+
+            var db = new RealEstateDbContext();
+
+            var propertyService = new PropetiesService(db);
+
+            foreach (var property in jsonProperties.Where(x => x.Price > 1000))
+            {
+                propertyService.Create
+                    (
+                    property.District,
+                    property.Size,
+                    property.Year,
+                    property.Price,
+                    property.Type,
+                    property.BuildingType,
+                    property.Floor,
+                    property.TotalFloors
+                    );
+            }
+
+            Console.WriteLine("Done!");
 
         }
 
@@ -22,6 +50,6 @@ namespace RealEstates.Importer
         //"BuildingType": "Тухла",
         //"Price": 17590
 
-        public class 
+
     }
 }
