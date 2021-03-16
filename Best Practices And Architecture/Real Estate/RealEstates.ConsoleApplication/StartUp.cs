@@ -38,8 +38,6 @@ namespace RealEstates.ConsoleApplication
             //Console.WriteLine(json);
 
 
-
-
         }
     }
 }
