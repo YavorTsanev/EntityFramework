@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Unicode;
+using RealEstates.Models;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace RealEstates.ConsoleApplication
@@ -37,7 +38,7 @@ namespace RealEstates.ConsoleApplication
 
             //Console.WriteLine(json);
 
-
+            var tag = new Tag { }
         }
     }
 }
