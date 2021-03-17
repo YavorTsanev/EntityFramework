@@ -8,5 +8,7 @@ namespace PetStore.Common
     {
         //Product
         public const string InvalidProductType = "Invalid product type provided!";
+        public const string NullProduct = "Not existing product id!";
+
     }
 }

@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetStore.Data;
 
 namespace PetStore.Data.Migrations
 {
     [DbContext(typeof(PetStoreDbContext))]
-    partial class PetStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210317152444_CreatedAlternateKeyProduct.NAme")]
+    partial class CreatedAlternateKeyProductNAme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

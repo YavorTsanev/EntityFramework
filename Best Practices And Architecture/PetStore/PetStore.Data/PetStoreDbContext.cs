@@ -42,6 +42,8 @@ namespace PetStore.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ClientProduct>().HasKey(x => new {x.ClientId, x.ProductId});
+
+            modelBuilder.Entity<Product>().HasAlternateKey(x => x.Name);
         }
     }
 }

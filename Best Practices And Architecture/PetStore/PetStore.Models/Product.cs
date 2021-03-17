@@ -9,12 +9,12 @@ namespace PetStore.Models
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
-        [Required, MaxLength(50), MinLength(3)]
+        [Required, MaxLength(50), MinLength(3),]
         public string Name { get; set; }
 
         public ProductType ProductType { get; set; }
 
-        [Range(3, 50,ErrorMessage = "Yooo")]
+        [Range(3, 50)]
         public decimal Price { get; set; }
 
         public virtual ICollection<ClientProduct> ClientProducts { get; set; } = new HashSet<ClientProduct>();
