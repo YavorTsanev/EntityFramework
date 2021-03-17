@@ -24,7 +24,6 @@ namespace PetStore.Models
         public virtual Breed Breed { get; set; }
 
         public string ClientId { get; set; }
-
         public virtual Client Client { get; set; }
 
 
