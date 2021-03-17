@@ -9,15 +9,15 @@ namespace PetStore.Models
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
-        [Required, MinLength(3)]
+        [Required, MinLength(3),MaxLength(50)]
         public string Name { get; set; }
 
         public Gender Gender { get; set; }
-
+        [Range(0,200)]
         public byte Age { get; set; }
 
         public bool IsSold { get; set; }
-
+        [Range(0,double.MaxValue)]
         public decimal Price { get; set; }
 
         public int BreedId { get; set; }
