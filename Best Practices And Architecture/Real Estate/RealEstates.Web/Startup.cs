@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using RealEstates.Data;
+using RealEstates.Services;
 
 namespace RealEstates.Web
 {
@@ -23,6 +26,12 @@ namespace RealEstates.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<RealEstateDbContext>(o =>
+            {
+                o.UseSqlServer(Configuration["ConnectionString"]);
+            });
+            services.AddTransient<IDistrictsService, DistrictService>();
+            services.AddTransient<IPropertiesService, PropetiesService>();
             services.AddControllersWithViews();
         }
 
