@@ -6,6 +6,7 @@ using PetStore.Models;
 using PetStore.Models.Enums;
 using PetStore.ServiceModels.Products.InputModels;
 using PetStore.ServiceModels.Products.OutputModels;
+using PetStore.ViewModels.Product;
 
 namespace PetStore.Mapping
 {
@@ -26,6 +27,9 @@ namespace PetStore.Mapping
 
             CreateMap<EditProductInputServiceModel, Product>().ForMember(x => x.ProductType,
                 o => o.MapFrom(x => Enum.Parse<ProductType>(x.ProductType)));
+
+            CreateMap<ListAllProductsServiceModel, ListAllProductsViewModel>();
+
         }
     }
 }
