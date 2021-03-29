@@ -19,6 +19,8 @@
             var projectDir = GetProjectDirectory();
 
             ImportEntities(context, projectDir + @"Datasets/", projectDir + @"ImportResults/");
+
+
             //ExportEntities(context, projectDir + @"ExportResults/");
 
             //using (var transaction = context.Database.BeginTransaction())
@@ -34,13 +36,21 @@
                     File.ReadAllText(baseDir + "ImportDepartmentsCells.json"));
             PrintAndExportEntityToFile(departmentsCells, exportDir + "ImportDepartmentsCells.txt");
 
+            File.WriteAllText("../../../ImportResults/" + "Actual Result - ImportDepartmentsCells.txt",departmentsCells);
+
+
+
             var prisonersMails =
                 DataProcessor.Deserializer.ImportPrisonersMails(context,
                     File.ReadAllText(baseDir + "ImportPrisonersMails.json"));
             PrintAndExportEntityToFile(prisonersMails, exportDir + "ImportPrisonersMails.txt");
 
+            File.WriteAllText("../../../ImportResults/" + "Actual Result - ImportPrisonersMails.txt", prisonersMails);
+
             var officersPrisoners = DataProcessor.Deserializer.ImportOfficersPrisoners(context, File.ReadAllText(baseDir + "ImportOfficersPrisoners.xml"));
             PrintAndExportEntityToFile(officersPrisoners, exportDir + "ImportOfficersPrisoners.txt");
+
+            File.WriteAllText("../../../ImportResults/" + "Actual Result - ImportOfficersPrisoners.txt", officersPrisoners);
         }
 
         private static void ExportEntities(SoftJailDbContext context, string exportDir)
