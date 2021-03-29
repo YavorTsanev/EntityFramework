@@ -3,70 +3,70 @@
     "Name": "град София, Докторски паметник",
     "MinPrice": 53499,
     "MaxPrice": 490000,
-    "AveragePrice": 197524.5,
+    "AveragePrice": 2719.0555555555557,
     "PropertiesCount": 54
-  },
-  {
-    "Name": "град София, ж.гр.Южен парк",
-    "MinPrice": 123000,
-    "MaxPrice": 189000,
-    "AveragePrice": 163966.667,
-    "PropertiesCount": 3
   },
   {
     "Name": "град София, Иван Вазов",
     "MinPrice": 64000,
     "MaxPrice": 264000,
-    "AveragePrice": 153497.817,
+    "AveragePrice": 2074.05,
     "PropertiesCount": 60
-  },
-  {
-    "Name": "град София, Лозенец",
-    "MinPrice": 29900,
-    "MaxPrice": 437740,
-    "AveragePrice": 151740.037,
-    "PropertiesCount": 298
   },
   {
     "Name": "град София, Яворов",
     "MinPrice": 30000,
     "MaxPrice": 244500,
-    "AveragePrice": 144712.028,
+    "AveragePrice": 1904.8591549295775,
     "PropertiesCount": 71
   },
   {
     "Name": "град София, Медицинска академия",
     "MinPrice": 35000,
     "MaxPrice": 235000,
-    "AveragePrice": 140753.714,
+    "AveragePrice": 1886.5238095238096,
     "PropertiesCount": 21
   },
   {
-    "Name": "град София, с. Иваняне",
-    "MinPrice": 138000,
-    "MaxPrice": 138000,
-    "AveragePrice": 138000,
-    "PropertiesCount": 1
+    "Name": "град София, Лозенец",
+    "MinPrice": 29900,
+    "MaxPrice": 437740,
+    "AveragePrice": 1883.0771812080536,
+    "PropertiesCount": 298
+  },
+  {
+    "Name": "град София, ж.гр.Южен парк",
+    "MinPrice": 123000,
+    "MaxPrice": 189000,
+    "AveragePrice": 1869,
+    "PropertiesCount": 3
   },
   {
     "Name": "град София, Оборище",
     "MinPrice": 38000,
     "MaxPrice": 300000,
-    "AveragePrice": 137997.889,
+    "AveragePrice": 1801.5694444444443,
     "PropertiesCount": 72
   },
   {
     "Name": "град София, Център",
     "MinPrice": 15500,
     "MaxPrice": 396000,
-    "AveragePrice": 134432.79,
+    "AveragePrice": 1777.6017842660178,
     "PropertiesCount": 1233
   },
   {
     "Name": "град София, Изток",
     "MinPrice": 66200,
     "MaxPrice": 240000,
-    "AveragePrice": 132409.288,
+    "AveragePrice": 1767.904,
     "PropertiesCount": 125
+  },
+  {
+    "Name": "град София, Изгрев",
+    "MinPrice": 64760,
+    "MaxPrice": 213850,
+    "AveragePrice": 1655.4666666666667,
+    "PropertiesCount": 45
   }
 ]
