@@ -1,14 +1,35 @@
-﻿namespace VaporStore.DataProcessor
-{
-	using System;
-	using Data;
+﻿using System.Globalization;
+using System.Linq;
+using Newtonsoft.Json;
+using ProductShop;
+using VaporStore.DataProcessor.Dto.Export;
 
-	public static class Serializer
-	{
-		public static string ExportGamesByGenres(VaporStoreDbContext context, string[] genreNames)
-		{
-            return "TODO";
-		}
+namespace VaporStore.DataProcessor
+{
+    using Data;
+
+    public static class Serializer
+    {
+        public static string ExportGamesByGenres(VaporStoreDbContext context, string[] genreNames)
+        {
+            var gamesByGenres = context.Genres.Where(g => genreNames.Contains(g.Name)).ToList().Select(g =>
+                new GameByGenreExportDto
+                {
+                    Id = g.Id,
+                    Genre = g.Name,
+                    Games = g.Games.Where(gm => gm.Purchases.Any()).Select(gm => new GameExportDto
+                    {
+                        Id = gm.Id,
+                        Title = gm.Name,
+                        Developer = gm.Developer.Name,
+                        Tags = string.Join(", ", gm.GameTags.Select(t => t.Tag.Name)),
+                        Players = gm.Purchases.Count
+                    }).OrderByDescending(x => x.Players).ThenBy(x => x.Id).ToArray(),
+                    TotalPlayers = g.Games.Select(g => g.Purchases.Count).Sum()
+                }).OrderByDescending(x => x.TotalPlayers).ThenBy(x => x.Id);
+
+            return JsonConvert.SerializeObject(gamesByGenres, Formatting.Indented);
+        }
 
         public static string ExportUserPurchasesByType(VaporStoreDbContext context, string storeType)
         {
@@ -36,6 +57,7 @@
                 }).OrderByDescending(x => x.TotalSpent).ThenBy(x => x.Username).ToList();
 
             return XmlConverter.Serialize(users, "Users");
+            ffffffffffffffffffffffffffffffff
         }
     }
 }

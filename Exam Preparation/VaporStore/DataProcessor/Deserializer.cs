@@ -3,6 +3,8 @@ using System.Linq;
 using System.Text;
 using AutoMapper;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using ProductShop;
 using VaporStore.Data.Models;
 using VaporStore.DataProcessor.Dto.Import;
 
@@ -82,7 +84,33 @@ namespace VaporStore.DataProcessor
 
         public static string ImportPurchases(VaporStoreDbContext context, string xmlString)
         {
-            return "TODO";
+            var sb = new StringBuilder();
+
+            var purchasesDtos = XmlConverter.Deserializer<PurchaseImportDto>(xmlString, "Purchases");
+
+            foreach (var itemDto in purchasesDtos)
+            {
+                if (!IsValid(itemDto))
+                {
+                    sb.AppendLine("Invalid Data");
+                    continue;
+                }
+
+                var purchase = new Purchase
+                {
+                    Type = itemDto.Type.Value,
+                    ProductKey = itemDto.ProductKey,
+                    Date = DateTime.ParseExact(itemDto.Date, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture),
+                    Card = context.Cards.FirstOrDefault(c => c.Number == itemDto.Card),
+                    Game = context.Games.FirstOrDefault(g => g.Name == itemDto.Game)
+                };
+
+                context.Purchases.Add(purchase);
+                sb.AppendLine($"Imported {itemDto.Game} for {purchase.Card.User.Username}");
+            }
+            context.SaveChanges();
+
+            return sb.ToString().TrimEnd();
         }
 
         private static bool IsValid(object dto)
