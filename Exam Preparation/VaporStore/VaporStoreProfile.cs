@@ -1,4 +1,7 @@
-﻿namespace VaporStore
+﻿using VaporStore.Data.Models;
+using VaporStore.DataProcessor.Dto.Import;
+
+namespace VaporStore
 {
 	using AutoMapper;
 
@@ -6,7 +9,9 @@
 	{
 		// Configure your AutoMapper here if you wish to use it. If not, DO NOT DELETE THIS CLASS
 		public VaporStoreProfile()
-		{
-		}
+        {
+            CreateMap<UserCardImportDto, User>();
+            CreateMap<CardImportDto, Card>();
+        }
 	}
 }
