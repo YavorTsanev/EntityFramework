@@ -57,7 +57,6 @@ namespace VaporStore.DataProcessor
                 }).OrderByDescending(x => x.TotalSpent).ThenBy(x => x.Username).ToList();
 
             return XmlConverter.Serialize(users, "Users");
-            ffffffffffffffffffffffffffffffff
         }
     }
 }
