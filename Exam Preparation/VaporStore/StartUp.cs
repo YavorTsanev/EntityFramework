@@ -15,7 +15,7 @@
 
 			Mapper.Initialize(config => config.AddProfile<VaporStoreProfile>());
 
-			ResetDatabase(context, shouldDropDatabase: true);
+			ResetDatabase(context, shouldDropDatabase: false);
 
 			var projectDir = GetProjectDirectory();
 
@@ -33,7 +33,7 @@
 			var jsonOutput = Serializer.ExportGamesByGenres(context, new[] { "Nudity", "Violent" });
 			PrintAndExportEntityToFile(jsonOutput, exportDir + "GamesByGenres.json");
 
-			var xmlOutput = Serializer.ExportUserPurchasesByType(context, "Digital");
+			var xmlOutput = Serializer.ExportUserPurchasesByType(context, "Retail");
 			PrintAndExportEntityToFile(xmlOutput, exportDir + "UserPurchases.xml");
 		}
 
