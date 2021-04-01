@@ -51,9 +51,7 @@ namespace VaporStore.DataProcessor
                         }
 
                     }).OrderBy(x => x.Date).ToArray(),
-                    TotalSpent = u.Cards.Select(c =>
-                            c.Purchases.Where(p => p.Type.ToString() == storeType).Select(p => p.Game.Price).Sum())
-                            .Sum()
+                    TotalSpent = u.Cards.SelectMany(c => c.Purchases.Where(p => p.Type.ToString()== storeType)).Select(p => p.Game.Price).Sum()
                 }).OrderByDescending(x => x.TotalSpent).ThenBy(x => x.Username).ToList();
 
             return XmlConverter.Serialize(users, "Users");
