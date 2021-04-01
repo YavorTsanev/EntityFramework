@@ -23,7 +23,8 @@ namespace BookShop.DataProcessor.ImportDto
         [Range(50, 5000)]
         public int Pages { get; set; }
 
-        public DateTime PublishedOn { get; set; }
+        [Required]
+        public string PublishedOn { get; set; }
 
     }
 

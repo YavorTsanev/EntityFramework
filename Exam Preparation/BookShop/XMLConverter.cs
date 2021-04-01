@@ -17,7 +17,7 @@ namespace ProductShop
 
             var builder = new StringBuilder();
 
-            using var write = new StringWriter(builder);
+            var write = new StringWriter(builder);
             serializer.Serialize(write, dataTransferObjects, GetXmlNamespaces());
 
             return builder.ToString();
@@ -31,7 +31,7 @@ namespace ProductShop
 
             var builder = new StringBuilder();
 
-            using var writer = new StringWriter(builder);
+            var writer = new StringWriter(builder);
             serializer.Serialize(writer, dataTransferObjects, GetXmlNamespaces());
 
             return builder.ToString();

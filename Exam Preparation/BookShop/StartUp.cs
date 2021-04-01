@@ -1,4 +1,6 @@
-﻿namespace BookShop
+﻿using AutoMapper;
+
+namespace BookShop
 {
     using System;
     using System.Globalization;
@@ -14,6 +16,11 @@
     {
         public static void Main(string[] args)
         {
+
+            Mapper.Initialize(cfg => {
+                cfg.AddProfile<BookShopProfile>();
+            });
+
             var context = new BookShopContext();
 
             ResetDatabase(context, shouldDropDatabase: true);
