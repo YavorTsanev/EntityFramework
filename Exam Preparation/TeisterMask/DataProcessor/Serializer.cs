@@ -20,7 +20,6 @@ namespace TeisterMask.DataProcessor
             var projects = context
                 
                 .Projects
-                .ToList()
                 .Where(p => p.Tasks.Count > 0)
                 .ToList()
                 .Select(p => new ProjectTaskExportDto
@@ -28,7 +27,7 @@ namespace TeisterMask.DataProcessor
                 TasksCount = p.Tasks.Count,
                 ProjectName = p.Name,
                 HasEndDate = p.DueDate.HasValue ? "Yes" : "No",
-                Tasks = p.Tasks.ToList().Select(t => new ProjectTaskExportDto.TaskExportDto
+                Tasks = p.Tasks.Select(t => new ProjectTaskExportDto.TaskExportDto
                 {
                     Name = t.Name,
                     Label = t.LabelType.ToString()
@@ -45,7 +44,6 @@ namespace TeisterMask.DataProcessor
 
 
             var employyes = context.Employees
-                .ToList()
                 .Where(e => e.EmployeesTasks.Any(t => t.Task.OpenDate >= date))
                 .Select(e => new
                 {

@@ -1,4 +1,6 @@
-﻿namespace TeisterMask
+﻿using System.Text;
+
+namespace TeisterMask
 {
     using System;
     using System.IO;
@@ -13,6 +15,8 @@
     {
         public static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
+
             var context = new TeisterMaskContext();
 
             Mapper.Initialize(cfg => cfg.AddProfile<TeisterMaskProfile>());

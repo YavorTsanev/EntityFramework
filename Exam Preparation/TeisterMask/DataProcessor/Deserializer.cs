@@ -38,10 +38,13 @@ namespace TeisterMask.DataProcessor
             foreach (var projectDto in projectsDtos)
             {
                 var isValidDueDate = DateTime.TryParseExact(projectDto.DueDate, "dd/MM/yyyy",
-                    CultureInfo.InvariantCulture, DateTimeStyles.None, out var parseDueDate
-                );
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out var parseDueDate);
 
-                if (!IsValid(projectDto))
+                var isValidOpenDate = DateTime.TryParseExact(projectDto.OpenDate, "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out var parseOpenDate);
+                
+
+                if (!IsValid(projectDto) || !isValidOpenDate)
                 {
                     sb.AppendLine(ErrorMessage);
                     continue;
@@ -50,8 +53,7 @@ namespace TeisterMask.DataProcessor
                 var project = new Project
                 {
                     Name = projectDto.Name,
-                    OpenDate = DateTime.ParseExact(projectDto.OpenDate, "dd/MM/yyyy",
-                        CultureInfo.InvariantCulture),
+                    OpenDate = parseOpenDate,
                     DueDate = isValidDueDate ? parseDueDate : (DateTime?)null,
 
 
@@ -59,11 +61,11 @@ namespace TeisterMask.DataProcessor
 
                 foreach (var taskDto in projectDto.Tasks)
                 {
-                    var parsedTaskOpenDate = DateTime.ParseExact(taskDto.TaskOpenDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    var isValidTaskOpenDate = DateTime.TryParseExact(taskDto.TaskOpenDate, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedTaskOpenDate);
 
-                    var parsedTaskDueDate = DateTime.ParseExact(taskDto.TaskDueDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    var isValidTaskDueDate = DateTime.TryParseExact(taskDto.TaskDueDate, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedTaskDueDate);
 
-                    if (!IsValid(taskDto))
+                    if (!IsValid(taskDto) || !isValidTaskOpenDate || !isValidTaskDueDate)
                     {
                         sb.AppendLine(ErrorMessage);
                         continue;
